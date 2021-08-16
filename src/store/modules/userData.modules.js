@@ -14,8 +14,8 @@ const getters = {
 
 const mutations = {
   LOGIN_PAGE(state, payload) {
-    state.user.payload.email = payload.email;
-    state.user.payload.password = payload.password;
+    state.user.email = payload.email;
+    state.user.password = payload.password;
     state.user.isLogedin = true;
   },
 };

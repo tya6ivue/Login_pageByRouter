@@ -10,7 +10,7 @@
           class="
             column
             is-10-mobile is-offset-1-mobile is-4
-            has-background-color-dark
+            has-background-color-darkhttps://github.com/tya6ivue/Login_pageByRouter.git
           "
         >
           <div class="box">
