@@ -7,7 +7,10 @@
           <a class="button is-light" @click="logout()" v-if="isLogedin">
             <strong>Logout </strong>
           </a>
-          <a class="button is-primary" v-if="!isLogedin"> Log in </a>
+
+          <b-navbar-item tag="router-link" :to="{ path: '/Loginpge' }">
+            <a class="button is-primary" v-if="!isLogedin"> Log in </a>
+          </b-navbar-item>
         </div>
       </b-navbar-item>
     </template>

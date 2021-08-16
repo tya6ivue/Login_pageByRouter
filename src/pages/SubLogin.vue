@@ -1,7 +1,7 @@
  
 <template>
   <div>
-    <Header />
+    <LoginPage />
     <section class="hero is-small">
       <div class="hero-body">
         <div class="columns is-centered">
@@ -15,12 +15,12 @@
   </div>
 </template>
 <script>
-import Header from "../components/header.vue";
+import LoginPage from "../components/LoginPage.vue";
 import Form from "../components/form.vue";
 export default {
   name: "Login",
   components: {
-    Header,
+    LoginPage,
     Form,
   },
 };

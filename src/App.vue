@@ -2,6 +2,7 @@
   <div id="app">
     <LoginPage />
     <Form />
+    <router-view></router-view>
   </div>
 </template>
 

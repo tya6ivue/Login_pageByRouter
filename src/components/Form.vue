@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="column is-5-tablet is-2-desktop">
-      <p class="subtitle">Home Page</p>
+      <!-- <p class="subtitle">Home Page</p> -->
     </div>
     <section class="mt-4">
       <div class="columns is-centered">
@@ -79,7 +79,7 @@ export default {
     Submit() {
       // let EmailData =  this.EmailData.trim() > 0
 
-      const newwd = this.EmailData.trim().length;
+      const newwd = this.EmailData.trim();
 
       if (this.PasswordData && newwd) {
         //   console.log("afewf")
@@ -88,9 +88,9 @@ export default {
           Password: this.PasswordData,
         });
         (this.EmailData = ""), (this.PasswordData = "");
-        this.$router.push("/PageOne");
+        // this.$router.push('/PageOne')
       } else {
-        this.CheckInputBar = true;
+        alert("wwfrg")
       }
     },
   },

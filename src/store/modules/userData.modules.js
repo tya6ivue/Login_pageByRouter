@@ -8,22 +8,22 @@ const getters = {
     return state.isLoggedIn;
   },
   getUserEmail() {
-      return state.user.email
-  }
+    return state.user.email;
+  },
 };
 
 const mutations = {
   LOGIN_PAGE(state, payload) {
     state.user.email = payload.email;
     state.user.password = payload.password;
-    state.user.isLogedin = true;
+    state.isLogedin = true;
   },
 };
 
 const actions = {
   signin(context, payload) {
     context.commit("LOGIN_PAGE", payload);
-    console.log("sdg")
+    console.log("sdg");
   },
 };
 
