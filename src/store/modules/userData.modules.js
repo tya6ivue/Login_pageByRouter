@@ -7,6 +7,9 @@ const getters = {
   isLogedin(state) {
     return state.isLoggedIn;
   },
+  getUserEmail() {
+      return state.user.email
+  }
 };
 
 const mutations = {
@@ -20,6 +23,7 @@ const mutations = {
 const actions = {
   signin(context, payload) {
     context.commit("LOGIN_PAGE", payload);
+    console.log("sdg")
   },
 };
 

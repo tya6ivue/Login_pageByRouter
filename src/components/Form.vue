@@ -82,6 +82,7 @@ export default {
       const newwd = this.EmailData.trim().length;
 
       if (this.PasswordData && newwd) {
+        //   console.log("afewf")
         this.signin({
           email: this.EmailData,
           Password: this.PasswordData,
