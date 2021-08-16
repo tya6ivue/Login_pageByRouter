@@ -2,7 +2,6 @@
 <template>
   <div>
     <div class="column is-5-tablet is-2-desktop">
-      <!-- <p class="subtitle">Home Page</p> -->
     </div>
     <section class="mt-4">
       <div class="columns is-centered">
@@ -14,7 +13,6 @@
           "
         >
           <div class="box">
-            <!-- <p class=" mb-4" v-if="message">{{message}}</p> -->
             <div class="field">
               <label class="label">Email</label>
               <div class="control">
@@ -39,7 +37,6 @@
               </div>
             </div>
             <b-button @click="Submit" type="is-danger">Log in</b-button>
-            <!-- <button class="button is-fullwidth is-Danger is-lighht" >Log in</button> -->
           </div>
         </div>
       </div>
@@ -88,9 +85,9 @@ export default {
           Password: this.PasswordData,
         });
         (this.EmailData = ""), (this.PasswordData = "");
-        // this.$router.push('/PageOne')
+        this.$router.push('/PageOne')
       } else {
-        alert("wwfrg")
+        alert("both fill both input")
       }
     },
   },

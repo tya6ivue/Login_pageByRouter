@@ -2,6 +2,7 @@
 <template>
   <div>
     <Header />
+     <Form />
     <section class="hero is-small">
       <div class="hero-body">
         <div class="columns is-centered">
@@ -11,7 +12,7 @@
         </div>
       </div>
     </section>
-    <Form />
+   
   </div>
 </template>
 <script>

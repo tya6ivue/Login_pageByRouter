@@ -2,8 +2,11 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueRouter from "vue-router";
 import buefy from "buefy";
+
+
 import PageOne from "./pages/PageOne";
-// import  SubLogin from './pages/SubLogin'
+import HomePge from './pages/HomePge'
+import  SubLogin from './pages/SubLogin'
 import "buefy/dist/buefy.css";
 
 import { store } from "./store/store";
@@ -15,7 +18,8 @@ Vue.config.productionTip = false;
 
 const routes = [
   { path: '/PageOne', component: PageOne },
-  // { path: '/', component: SubLogin },
+  { path: '/SubLogin', component: SubLogin },
+  { path: '/HomePge', component: HomePge },
 ];
 
 
