@@ -1,8 +1,7 @@
  
 <template>
   <div>
-    <div class="column is-5-tablet is-2-desktop">
-    </div>
+    <div class="column is-5-tablet is-2-desktop"></div>
     <section class="mt-4">
       <div class="columns is-centered">
         <div
@@ -41,22 +40,9 @@
         </div>
       </div>
     </section>
-    <!-- <div class="text-center">
-      <v-snackbar v-model="CheckInputBar">
-        {{ AlertMsg }}
-
-        <template v-slot:action="{ attrs }">
-          <v-btn color="red" text v-bind="attrs" @click="CheckValue = false">
-            Close
-          </v-btn>
-        </template>
-      </v-snackbar>
-    </div> -->
   </div>
 </template>
 <script>
-// import { mapActions } from 'vuex'
-
 import { mapActions } from "vuex";
 export default {
   name: "Form",
@@ -66,7 +52,6 @@ export default {
       PasswordData: "",
       CheckInputBar: false,
       AlertMsg: "Please fill both input",
-      // CheckValue: false
     };
   },
 
@@ -74,20 +59,17 @@ export default {
     ...mapActions("userData", ["signin"]),
 
     Submit() {
-      // let EmailData =  this.EmailData.trim() > 0
-
       const newwd = this.EmailData.trim();
 
       if (this.PasswordData && newwd) {
-        //   console.log("afewf")
         this.signin({
           email: this.EmailData,
           Password: this.PasswordData,
         });
         (this.EmailData = ""), (this.PasswordData = "");
-        this.$router.push('/PageOne')
+        this.$router.push("/PageOne");
       } else {
-        alert("both fill both input")
+        alert("both fill both input");
       }
     },
   },

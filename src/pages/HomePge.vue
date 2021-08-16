@@ -1,28 +1,24 @@
  
 <template>
   <div>
-    <Header />
-     <Form />
+    <LoginPage />
     <section class="hero is-small">
       <div class="hero-body">
         <div class="columns is-centered">
           <div class="column is-6-tablet is-2-desktop">
-            <p class="subtitle">Login Page</p>
+            <p class="subtitle">Home Page</p>
           </div>
         </div>
       </div>
     </section>
-   
   </div>
 </template>
 <script>
-import Header from "../components/header.vue";
-import Form from "../components/form.vue";
+import LoginPage from "../components/LoginPage.vue";
 export default {
   name: "Login",
   components: {
-    Header,
-    Form,
+    LoginPage,
   },
 };
 </script>

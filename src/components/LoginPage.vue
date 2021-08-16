@@ -8,7 +8,7 @@
             <strong>Logout </strong>
           </a>
 
-          <b-navbar-item tag="router-link" :to="{ path: '/Loginpge' }">
+          <b-navbar-item tag="router-link" :to="{ path: '/SubLogin' }">
             <a class="button is-primary" v-if="!isLogedin"> Log in </a>
           </b-navbar-item>
         </div>

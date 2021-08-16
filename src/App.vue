@@ -1,21 +1,13 @@
 <template>
   <div id="app">
-    <LoginPage />
-    <Form />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Form from "./components/Form.vue";
-import LoginPage from "./components/LoginPage.vue";
-
 export default {
   name: "App",
-  components: {
-    Form,
-    LoginPage,
-  },
+  components: {},
 };
 </script>
 
