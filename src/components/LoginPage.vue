@@ -1,28 +1,32 @@
 
 <template>
-    <b-navbar>
-
-
-             <template #end>
-            <b-navbar-item tag="div">
-                <div class="buttons">
-                    <a class="button is-light">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-primary">
-                        Log in
-                    </a>
-                </div>
-            </b-navbar-item>
-        </template>
-         </b-navbar>
+  <b-navbar>
+    <template #end>
+      <b-navbar-item tag="div">
+        <div class="buttons">
+          <a class="button is-light" @click="logout()" v-if="isLogedin">
+            <strong>Logout </strong>
+          </a>
+          <a class="button is-primary" v-if="!isLogedin"> Log in </a>
+        </div>
+      </b-navbar-item>
+    </template>
+  </b-navbar>
 </template>
 
 <script>
-    export default {
-        methods: {
-            clickMe() {
-            }
-        }
-    }
+import { mapGetters, mapActions } from "vuex";
+export default {
+  computed: {
+    ...mapGetters("userData", ["isLogedin"]),
+  },
+
+  methods: {
+    ...mapActions("userData", ["logout"]),
+    logout() {
+      this.logout();
+      this.$router.push("/");
+    },
+  },
+};
 </script>

@@ -6,16 +6,16 @@
 </template>
 
 <script>
-import Form from './components/Form.vue'
-import LoginPage from './components/LoginPage.vue'
+import Form from "./components/Form.vue";
+import LoginPage from "./components/LoginPage.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-   Form,
-  LoginPage
-  }
-}
+    Form,
+    LoginPage,
+  },
+};
 </script>
 
 <style>
