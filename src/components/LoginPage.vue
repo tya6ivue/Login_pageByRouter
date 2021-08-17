@@ -1,25 +1,22 @@
 
 <template>
-  <b-navbar>
-    <template #end>
-      <b-navbar-item tag="div">
-        <div class="buttons">
-          <a class="button is-light" @click="logout()" v-if="isLogedin">
-            <strong>Logout </strong>
-          </a>
-
-          <b-navbar-item tag="router-link" :to="{ path: '/SubLogin' }">
-            <a class="button is-primary" v-if="!isLogedin"> Log in </a>
-          </b-navbar-item>
-        </div>
-      </b-navbar-item>
-    </template>
-  </b-navbar>
+  <div>
+    <Header />
+    <Form />
+  </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Header from "../components/Header.vue";
+import Form from "../components/Form.vue";
 export default {
+  name: "LoginPage",
+  components: {
+    Header,
+    Form,
+  },
+
   computed: {
     ...mapGetters("userData", ["isLogedin"]),
   },

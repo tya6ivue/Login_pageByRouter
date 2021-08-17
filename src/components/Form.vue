@@ -1,6 +1,10 @@
  
 <template>
   <div>
+    <b-navbar class="has-background-info">
+      <h1 class="has-text-black">Login Page</h1>
+    </b-navbar>
+
     <div class="column is-5-tablet is-2-desktop"></div>
     <section class="mt-4">
       <div class="columns is-centered">
@@ -67,9 +71,9 @@ export default {
           Password: this.PasswordData,
         });
         (this.EmailData = ""), (this.PasswordData = "");
-        this.$router.push("/PageOne");
+        this.$router.push("/ProfilePage");
       } else {
-        alert("both fill both input");
+        alert("Please fill both input");
       }
     },
   },

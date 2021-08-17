@@ -1,7 +1,7 @@
  
 <template>
   <div>
-    <LoginPage />
+  <Header />
     <section class="hero is-small">
       <div class="hero-body">
         <div class="columns is-centered">
@@ -13,12 +13,14 @@
     </section>
   </div>
 </template>
+
 <script>
-import LoginPage from "../components/LoginPage.vue";
+import Header from '../components/Header.vue'
 export default {
-  name: "Login",
+  name: "HomePge",
   components: {
-    LoginPage,
+    // LoginPage,
+    Header
   },
 };
 </script>
