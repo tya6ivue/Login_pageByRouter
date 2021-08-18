@@ -18,7 +18,7 @@
               <strong>Sign up </strong>
             </a>
 
-            <b-navbar-item tag="router-link" :to="{ path: '/LoginPage' }">
+            <b-navbar-item tag="router-link" :to="{ path: '/loginpage' }">
               <a class="button is-primary"> Log in </a>
             </b-navbar-item>
           </div>
@@ -29,8 +29,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Header",
+
+  computed: {
+    ...mapGetters("userData", ["isLogin"]),
+  },
 };
 </script>
 

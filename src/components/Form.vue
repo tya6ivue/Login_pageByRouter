@@ -1,9 +1,9 @@
  
 <template>
   <div>
-    <b-navbar class="has-background-info">
-      <h1 class="has-text-black">Login Page</h1>
-    </b-navbar>
+    <div class="has-background-info">
+      <div class="has-text-black">Login Page</div>
+    </div>
 
     <div class="column is-5-tablet is-2-desktop"></div>
     <section class="mt-4">
@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Form",
   data() {
@@ -57,6 +57,18 @@ export default {
       CheckInputBar: false,
       AlertMsg: "Please fill both input",
     };
+  },
+
+  // watch: {
+  // isLogedin(value) {
+  //       if(value == true) {
+  //         this.$router.push('/ProfilePage')
+  //       }
+  // }
+  // },
+
+  computed: {
+      ...mapGetters("userData", ["isLogedin"])
   },
 
   methods: {
@@ -73,7 +85,7 @@ export default {
         (this.EmailData = ""), (this.PasswordData = "");
         this.$router.push("/ProfilePage");
       } else {
-        alert("Please fill both input");
+        alert("Both field are required");
       }
     },
   },

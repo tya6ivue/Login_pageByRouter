@@ -11,9 +11,10 @@
           />
         </b-navbar-item>
       </template>
+
       <template #end>
         <b-navbar-item tag="router-link" :to="{ path: '/LoginPage' }">
-          <div class="buttons">
+          <div class="buttons" @click="logOutabc">
             <a class="button is-light">
               <strong>Log out </strong>
             </a>
@@ -33,13 +34,20 @@
   </div>
 </template>
 <script>
-// import Header from "../components/Header.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ProfilePage",
   components: {},
   computed: {
     ...mapGetters("userData", ["getUserEmail"]),
+  },
+
+  methods: {
+    ...mapActions("userData", ["logOut"]),
+    logOutabc() {
+      this.logOut();
+      this.$router.push("/LoginPage");
+    },
   },
 };
 </script>

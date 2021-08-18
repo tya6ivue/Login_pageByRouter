@@ -8,7 +8,7 @@
       <Header />
       <h1>Signup Page</h1>
 
-      <div class="column is-5-tablet is-2-desktop"></div>
+      <div class="column"></div>
       <section class="mt-4">
         <div class="columns is-centered">
           <b-field label="Name">

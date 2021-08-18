@@ -11,14 +11,18 @@ function guardMyroute(to, from, next) {
     isAuthenticated = false;
   }
 
+  console.log(isAuthenticated);
   if (isAuthenticated) {
     if (to.fullPath == "/" || to.fullPath == "/ProfilePage") {
       next();
     } else {
       next("/");
+
+      console.log(isAuthenticated);
     }
   } else {
     next("/LoginPage"); // go to '/login';
+    console.log("wefrg");
   }
 }
 
@@ -52,15 +56,15 @@ export default [
     name: ProfilePage,
   },
   {
-    path: "/signup",
+    path: "/SignUp",
     component: SignUpPage,
-    beforeEnter: guardMyroute,
     name: SignUpPage,
   },
   {
     path: "/LogedinPage",
     component: LogedinPage,
-    beforeEnter: guardMyroute,
     name: LogedinPage,
   },
+
+  { path: "/:catchAll(.*)", beforeEnter: guardMyroute, component: HomePge },
 ];

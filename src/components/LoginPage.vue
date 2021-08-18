@@ -22,9 +22,9 @@ export default {
   },
 
   methods: {
-    ...mapActions("userData", ["logout"]),
+    ...mapActions("userData", ["logOut"]),
     logout() {
-      this.logout();
+      this.logOut();
       this.$router.push("/");
     },
   },
