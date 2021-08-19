@@ -68,17 +68,17 @@ export default {
   // },
 
   computed: {
-      ...mapGetters("userData", ["isLogedin"])
+    ...mapGetters("userData", ["isLogedin"]),
   },
 
   methods: {
     ...mapActions("userData", ["signin"]),
 
-    Submit() {
+    async Submit() {
       const newwd = this.EmailData.trim();
 
       if (this.PasswordData && newwd) {
-        this.signin({
+        await this.signin({
           email: this.EmailData,
           Password: this.PasswordData,
         });

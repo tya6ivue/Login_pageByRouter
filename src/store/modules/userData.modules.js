@@ -4,16 +4,17 @@ const state = {
 };
 
 const getters = {
-  isLogin(state) {
-    var localUserDetails = JSON.parse(localStorage.getItem("LoginCredentials"));
+  // isLogin(state) {
+  //   var localUserDetails = JSON.parse(localStorage.getItem("LoginCredentials"));
+  //   console.log(localUserDetails, 'localUserDetailslocalUserDetailslocalUserDetails');
 
-    if (localUserDetails) {
-      state.isLogedin = true;
-    } else {
-      state.isLogedin = false;
-    }
-    return state.isLoggedIn;
-  },
+  //   if (localUserDetails) {
+  //   return state.isLogedin = true
+  //   } else {
+  //   return state.isLogedin = false
+  //   }
+
+  // },
 
   getUserEmail() {
     return state.user.email;
@@ -26,13 +27,16 @@ const mutations = {
     state.user.password = payload.password;
     state.isLogedin = true;
 
-    localStorage.setItem("LoginCredentials", {
-      isLogedin: state.isLogedin,
-      details: payload,
-    });
+    localStorage.setItem(
+      "LoginCredentials",
+      JSON.stringify({
+        isLogedin: state.isLogedin,
+        details: payload,
+      })
+    );
   },
 
-  LOGOUT(state) {
+  LOGOUT() {
     console.log("logout");
     (state.user.email = ""),
       (state.user.password = ""),
@@ -41,8 +45,8 @@ const mutations = {
   },
 };
 const actions = {
-  signin(context, payload) {
-    context.commit("LOGIN_PAGE", payload);
+  signin({ commit }, payload) {
+    commit("LOGIN_PAGE", payload);
   },
 
   logOut(context, payload) {
