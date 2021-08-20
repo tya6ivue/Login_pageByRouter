@@ -77,7 +77,7 @@ export default {
     async Submit() {
       const newwd = this.EmailData.trim();
 
-      if (this.PasswordData && newwd) {
+      if ( newwd && this.PasswordData.trim() ) {
         await this.signin({
           email: this.EmailData,
           Password: this.PasswordData,

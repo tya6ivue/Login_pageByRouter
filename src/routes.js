@@ -9,26 +9,31 @@ function guardMyroute(to, from, next) {
     isAuthenticated = false;
   }
 
-  console.log();
   if (isAuthenticated) {
+    console.log(isAuthenticated);
     if (to.fullPath == "/" || to.fullPath == "/ProfilePage") {
       next();
     } else {
       next("/");
+    
     }
   } else {
-    next("/LoginPage"); // go to '/login';
+    if (to.fullPath == "/") {
+      next();
+    } else {
+      next("/loginPage"); // go to '/login';
+    }
+    
   }
 }
-
 function isLoggedInOrNot(to, from, next) {
   var isAuthenticated = false;
   if (localStorage.getItem("LoginCredentials")) isAuthenticated = true;
-  else
-   isAuthenticated = false;
+  else isAuthenticated = false;
   if (!isAuthenticated) {
     if (to.fullPath == "/LoginPage") {
       next(); // allow to enter login page
+      console.log("egrthrtjhyj");
     } else {
       next("/LoginPage");
     }
