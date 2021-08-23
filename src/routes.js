@@ -1,5 +1,6 @@
 import HomePge from "./pages/HomePge.vue";
 import LoginPage from "../src/components/LoginPage";
+import SignupPage from "./components/SignupPage";
 import ProfilePage from "../src/pages/ProfilePage.vue";
 
 function guardMyroute(to, from, next) {
@@ -28,14 +29,13 @@ function isLoggedInOrNot(to, from, next) {
   if (localStorage.getItem("LoginCredentials")) isAuthenticated = true;
   else isAuthenticated = false;
   if (!isAuthenticated) {
-    if (to.fullPath == "/LoginPage") {
+    if (to.fullPath == "/LoginPage" || to.fullPath == "./SignupPage") {
       next(); // allow to enter login page
-      console.log("egrthrtjhyj");
     } else {
       next("/LoginPage");
     }
   } else {
-    next("/ProfilePage"); // go to '/profile';
+    next("/SignupPage"); // go to '/profile';
   }
 }
 
@@ -60,5 +60,12 @@ export default [
     name: ProfilePage,
   },
 
-  { path: "/:catchAll(.*)", beforeEnter: guardMyroute, component: HomePge },
+  {
+    path: "./SignupPage",
+    component: SignupPage,
+    // beforeEnter: isLoggedInOrNot,
+    name: SignupPage,
+  },
+
+  // { path: "/:catchAll(.*)", beforeEnter: guardMyroute, component: HomePge },
 ];

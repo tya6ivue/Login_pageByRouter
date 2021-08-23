@@ -27,6 +27,15 @@
           </div>
         </b-navbar-item>
 
+
+             <b-navbar-item tag="router-link" :to="{ path: '/SignupPage' }">
+          <div class="buttons" v-if="!isLoggedin">
+            <a class="button is-light">
+              <strong>Sign up</strong>
+            </a>
+          </div>
+        </b-navbar-item>
+
         <b-navbar-item tag="router-link" :to="{ path: '/loginpage' }">
           <div class="buttons" v-if="!isLoggedin">
             <a class="button is-light">
@@ -51,11 +60,6 @@ export default {
       userEmail: "",
     };
   },
-  watch: {
-    getUserEmail(val) {
-      console.log(val);
-    },
-  },
 
   computed: {
     ...mapState("userData", ["isLogedin"]),
@@ -67,7 +71,6 @@ export default {
       let localUserDetails = JSON.parse(
         localStorage.getItem("LoginCredentials")
       );
-      console.log(localUserDetails);
 
       if (this.getUserEmail) {
         data = this.getUserEmail;

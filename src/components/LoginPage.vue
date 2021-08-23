@@ -14,6 +14,7 @@ export default {
   components: {
     Header,
     Form,
+    
   },
 };
 </script>
