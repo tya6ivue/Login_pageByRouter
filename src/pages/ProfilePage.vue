@@ -1,7 +1,7 @@
  
 <template>
   <div>
-   <Header />
+    <Header />
     <section class="hero is-small">
       <div class="hero-body">
         <div class="columns is-centered">
@@ -14,22 +14,15 @@
   </div>
 </template>
 <script>
-import { mapGetters, } from "vuex";
-import Header from '../components/Header.vue'
+import { mapGetters } from "vuex";
+import Header from "../components/Header.vue";
 export default {
   name: "ProfilePage",
   components: {
-    Header
+    Header,
   },
-  // computed: {
-  //   ...mapGetters("userData", ["getUserEmail"]),
-  // },
-
-
 
   computed: {
-    // ...mapState("userData", ["isLogedin"]),
-
     ...mapGetters("userData", ["getUserEmail"]),
 
     isLoggedin() {
@@ -48,7 +41,5 @@ export default {
       return data;
     },
   },
-
- 
 };
 </script>

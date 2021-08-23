@@ -1,25 +1,10 @@
-// import { store } from "../store";
-
 const state = {
   user: { email: "", password: "" },
   isLogedin: false,
 };
 
 const getters = {
-  // isLogin(state) {
-  //   var localUserDetails = JSON.parse(localStorage.getItem("LoginCredentials"));
-  //   console.log(localUserDetails, 'localUserDetailslocalUserDetailslocalUserDetails');
-
-  //   if (localUserDetails) {
-  //   return state.isLogedin = true
-  //   } else {
-  //   return state.isLogedin = false
-  //   }
-
-  // },
-
   getUserEmail() {
-    
     return state.user.email;
   },
 };
@@ -39,21 +24,16 @@ const mutations = {
     );
     var localUserDetails = JSON.parse(localStorage.getItem("LoginCredentials"));
 
-    state.user.email  = localUserDetails.details.email
+    state.user.email = localUserDetails.details.email;
   },
 
   LOGOUT(state) {
-    // console.log("logout");
     (state.user.email = ""),
       (state.user.password = ""),
       (state.isLogedin = false),
       localStorage.clear();
-      
-    // state.user.email = {};
+
     state.user.password = "";
-      // this.user.email =  "",
-      // this.user.password = ""
-      console.log("wwdde")
   },
 };
 const actions = {

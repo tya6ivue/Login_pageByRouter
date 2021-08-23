@@ -10,12 +10,10 @@ function guardMyroute(to, from, next) {
   }
 
   if (isAuthenticated) {
-    console.log(isAuthenticated);
     if (to.fullPath == "/" || to.fullPath == "/ProfilePage") {
       next();
     } else {
       next("/");
-    
     }
   } else {
     if (to.fullPath == "/") {
@@ -23,7 +21,6 @@ function guardMyroute(to, from, next) {
     } else {
       next("/loginPage"); // go to '/login';
     }
-    
   }
 }
 function isLoggedInOrNot(to, from, next) {

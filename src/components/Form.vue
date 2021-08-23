@@ -54,18 +54,9 @@ export default {
     return {
       EmailData: "",
       PasswordData: "",
-      CheckInputBar: false,
       AlertMsg: "Please fill both input",
     };
   },
-
-  // watch: {
-  // isLogedin(value) {
-  //       if(value == true) {
-  //         this.$router.push('/ProfilePage')
-  //       }
-  // }
-  // },
 
   computed: {
     ...mapGetters("userData", ["isLogedin"]),
@@ -77,7 +68,7 @@ export default {
     async Submit() {
       const newwd = this.EmailData.trim();
 
-      if ( newwd && this.PasswordData.trim() ) {
+      if (newwd && this.PasswordData.trim()) {
         await this.signin({
           email: this.EmailData,
           Password: this.PasswordData,
