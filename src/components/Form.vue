@@ -54,7 +54,7 @@ export default {
     return {
       EmailData: "",
       PasswordData: "",
-      AlertMsg: "Please fill both input",
+      Msg: "Please fill both input",
     };
   },
 
