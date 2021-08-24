@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header />
+    <h1>{{ msg }}</h1>
     <section class="mt-4">
       <div class="columns is-centered">
         <div
@@ -49,22 +50,12 @@
 
               <b-field>
                 <b-checkbox :value="true" type="is-danger" v-model="checked">
-                  checkbox
+                  I agree to terms and conditions
                 </b-checkbox>
+              </b-field>
 
+              <b-field>
                 <b-button @click="Submit" type="is-danger">Sign up</b-button>
-
-                <b-button
-                  label="Launch snackbar (default)"
-                  size="is-medium"
-                  @click="snackbar = true"
-                />
-
-                <b-button
-                  label="Launch snackbar (with cancel)"
-                  size="is-medium"
-                  @click="snackbar = false"
-                />
               </b-field>
             </section>
           </div>
@@ -89,7 +80,8 @@ export default {
       firstname: "",
       lastname: "",
       signUpEmail: "",
-      
+      msg: "",
+
       signUpPassword: "",
       signUpCnfPassword: "",
       checked: false,
@@ -112,36 +104,42 @@ export default {
       const checkCnfpswd = this.signUpCnfPassword.trim();
       const checkedornot = this.checked;
 
-      if (
-        checkfirstN &&
-        checklastN &&
-        checkemail &&
-        checkedornot &&
-        checkpassword === checkCnfpswd
-      ) {
-        this.signin({
-          firstname: this.firstname,
-          lastname: this.lastname,
-          signUpEmail: this.signUpEmail,
-          checkCnfpswd: this.checkCnfpswd,
-        });
-        (this.firstname = ""),
-          (this.lastname = ""),
-          (this.signUpEmail = ""),
-          (this.checkCnfpswd = ""),
-          (this.checkpassword = "");
-        this.$router.push("./ProfilePage");
+      if (checkfirstN) {
+        if (checklastN) {
+          if (checkemail) {
+            if (checkpassword) {
+              if (checkCnfpswd == checkpassword) {
+                if (checkedornot) {
+                  this.signin({
+                    firstname: this.firstname,
+                    lastname: this.lastname,
+                    signUpEmail: this.signUpEmail,
+                    checkCnfpswd: this.checkCnfpswd,
+                  });
+                  (this.firstname = ""),
+                    (this.lastname = ""),
+                    (this.signUpEmail = ""),
+                    (this.checkCnfpswd = ""),
+                    (this.checkpassword = "");
+                  this.$router.push("/loginpage");
+                } else {
+                  this.msg = "Please sellect terms and conditions";
+                }
+              } else {
+                this.msg = "Password Did not Match, Try Again.";
+              }
+            } else {
+              this.msg = "Password is Mendatory";
+            }
+          } else {
+            this.msg = "Email id is Mendatory";
+          }
+        } else {
+          this.msg = "Last Name is Mendatory";
+        }
       } else {
-        alert("all fields are required");
+        this.msg = "First Name is Mendatory";
       }
-    },
-
-    Custom() {
-      this.$buefy.dialog.alert({
-        title: "Title Alert",
-        message: "I have a title, a custom button and <b>HTML</b>!",
-        confirmText: "Cool!",
-      });
     },
   },
 };

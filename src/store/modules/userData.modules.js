@@ -9,12 +9,15 @@ const state = {
 
 const getters = {
   getUserEmail() {
-    return state.user.email;
+    return;
+  },
+  getLoginEmail() {
+    return state.user.abc;
   },
 };
 
 const mutations = {
-  LOGIN_PAGE(state, payload) {
+  SIGNINPAGE_DATA(state, payload) {
     state.user.email = payload.email;
     state.user.password = payload.password;
     state.isLogedin = true;
@@ -26,13 +29,29 @@ const mutations = {
     localStorage.setItem(
       "LoginCredentials",
       JSON.stringify({
-        isLogedin: state.isLogedin,
         details: payload,
       })
     );
     var localUserDetails = JSON.parse(localStorage.getItem("LoginCredentials"));
 
-    state.user.email = localUserDetails.details.firstname;
+    state.user.email = localUserDetails.details.signUpEmail;
+    console.log(localUserDetails.details);
+  },
+
+  LOGINPAGE_DATA(state, payload) {
+    localStorage.setItem(
+      "LoginDataCredentials",
+      JSON.stringify({
+        // isLogedin: state.isLogedin,
+        LoginDetails: payload,
+      })
+    );
+    var localLoginDetails = JSON.parse(
+      localStorage.getItem("LoginDataCredentials")
+    );
+
+    state.user.email = localLoginDetails.LoginDetails.email;
+    console.log(localLoginDetails.LoginDetails);
   },
 
   LOGOUT(state) {
@@ -49,7 +68,11 @@ const mutations = {
 
 const actions = {
   signin({ commit }, payload) {
-    commit("LOGIN_PAGE", payload);
+    commit("SIGNINPAGE_DATA", payload);
+  },
+
+  login({ commit }, payload) {
+    commit("LOGINPAGE_DATA", payload);
   },
 
   logOut(context, payload) {

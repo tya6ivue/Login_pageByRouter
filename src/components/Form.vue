@@ -1,7 +1,9 @@
  
 <template>
   <div>
-    <div class="has-background-info">
+
+    {{getUserEmail}}
+    <div >
       <div class="has-text-black">Login Page</div>
     </div>
 
@@ -12,7 +14,7 @@
           class="
             column
             is-10-mobile is-offset-1-mobile is-4
-            has-background-color-red
+            
           "
         >
           <div class="box">
@@ -42,8 +44,13 @@
             <b-button @click="Submit" type="is-danger">Log in</b-button>
           </div>
         </div>
+
+           
+                     
+                    
       </div>
     </section>
+    <p>   {{message}}</p>
   </div>
 </template>
 <script>
@@ -54,29 +61,33 @@ export default {
     return {
       EmailData: "",
       PasswordData: "",
-      Msg: "Please fill both input",
+          message:'',
     };
   },
 
   computed: {
     ...mapGetters("userData", ["isLogedin"]),
+    ...mapGetters("userData", ["getUserEmail"]),
   },
 
   methods: {
-    ...mapActions("userData", ["signin"]),
+    ...mapActions("userData", ["login"]),
 
     async Submit() {
       const newwd = this.EmailData.trim();
 
       if (newwd && this.PasswordData.trim()) {
-        await this.signin({
+        if (____logincrediantlss) {
+          
+        }
+        await this.login({
           email: this.EmailData,
           Password: this.PasswordData,
         });
         (this.EmailData = ""), (this.PasswordData = "");
         this.$router.push("/ProfilePage");
       } else {
-        alert("Both field are required");
+        this.message =  "please fill both input "
       }
     },
   },

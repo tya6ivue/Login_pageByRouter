@@ -18,6 +18,7 @@
             </a>
           </div>
         </b-navbar-item>
+
         <b-navbar-item tag="router-link" :to="{ path: '/loginpage' }">
           <div class="buttons" @click="logOutButton" v-if="isLoggedin">
             <a class="button is-light">
@@ -25,6 +26,7 @@
             </a>
           </div>
         </b-navbar-item>
+
         <b-navbar-item tag="router-link" :to="{ path: '/SignupPage' }">
           <div class="buttons" v-if="!isLoggedin">
             <a class="button is-light">
@@ -50,6 +52,7 @@ import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Header",
+
   data() {
     return {
       logedin: false,
@@ -72,8 +75,10 @@ export default {
         data = this.getUserEmail;
       } else if (localUserDetails && localUserDetails.details) {
         data = localUserDetails.details.email;
+
         data = localUserDetails.details.firstname;
       }
+
       return data;
     },
   },
@@ -87,5 +92,7 @@ export default {
 };
 </script>
 
+<style>
+</style>
 
   
