@@ -24,20 +24,17 @@ export default {
 
   computed: {
     ...mapGetters("userData", ["getUserEmail"]),
-
     isLoggedin() {
-      console.log(localUserDetails);
       let data = null;
       let localUserDetails = JSON.parse(
         localStorage.getItem("LoginCredentials")
       );
-
       if (this.getUserEmail) {
         data = this.getUserEmail;
       } else if (localUserDetails && localUserDetails.details) {
         data = localUserDetails.details.email;
+        data = localUserDetails.details.firstname;
       }
-
       return data;
     },
   },

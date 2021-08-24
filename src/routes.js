@@ -17,7 +17,7 @@ function guardMyroute(to, from, next) {
       next("/");
     }
   } else {
-    if (to.fullPath == "/") {
+    if (to.fullPath == "/" || to.fullPath == "/SignupPage") {
       next();
     } else {
       next("/loginPage"); // go to '/login';
@@ -29,13 +29,13 @@ function isLoggedInOrNot(to, from, next) {
   if (localStorage.getItem("LoginCredentials")) isAuthenticated = true;
   else isAuthenticated = false;
   if (!isAuthenticated) {
-    if (to.fullPath == "/LoginPage" || to.fullPath == "./SignupPage") {
+    if (to.fullPath == "/LoginPage" || to.fullPath == "/SignupPage") {
       next(); // allow to enter login page
     } else {
       next("/LoginPage");
     }
   } else {
-    next("/SignupPage"); // go to '/profile';
+    next("/"); // go to '/profile';
   }
 }
 
@@ -61,11 +61,11 @@ export default [
   },
 
   {
-    path: "./SignupPage",
+    path: "/SignupPage",
     component: SignupPage,
     // beforeEnter: isLoggedInOrNot,
     name: SignupPage,
   },
 
-  // { path: "/:catchAll(.*)", beforeEnter: guardMyroute, component: HomePge },
+  { path: "/:catchAll(.*)", beforeEnter: guardMyroute, component: HomePge },
 ];

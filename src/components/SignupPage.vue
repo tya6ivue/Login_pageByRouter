@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header />
     <section class="mt-4">
       <div class="columns is-centered">
         <div
@@ -18,30 +19,15 @@
               <b-field label=" Last Name">
                 <b-input placeholder="e.g Garvey" v-model="lastname"></b-input>
               </b-field>
-              <b-field
-                label="Email"
-                type="is-danger"
-                message="This email is invalid"
-              >
+              <b-field label="Email" type="is-danger">
+                <!-- message="This email is invalid" -->
                 <b-input
                   type="email"
                   placeholder="john@gmail.com"
                   v-model="signUpEmail"
-                  maxlength="15"
+                  maxlength="30"
                 >
                 </b-input>
-              </b-field>
-
-              <b-field
-                label="Username"
-                type="is-success"
-                message="This username is available"
-              >
-                <b-input
-                  value="johnsilver"
-                  v-model="username"
-                  maxlength="15"
-                ></b-input>
               </b-field>
 
               <b-field label="Password" type="is-warning">
@@ -62,17 +48,22 @@
               </b-field>
 
               <b-field>
-                <b-checkbox :value="true" type="is-danger">
+                <b-checkbox :value="true" type="is-danger" v-model="checked">
                   checkbox
                 </b-checkbox>
 
                 <b-button @click="Submit" type="is-danger">Sign up</b-button>
 
                 <b-button
-                  label="Launch alert (default)"
-                  type="is-primary"
+                  label="Launch snackbar (default)"
                   size="is-medium"
-                  @click="alertCustom = true"
+                  @click="snackbar = true"
+                />
+
+                <b-button
+                  label="Launch snackbar (with cancel)"
+                  size="is-medium"
+                  @click="snackbar = false"
                 />
               </b-field>
             </section>
@@ -84,20 +75,25 @@
 </template>
 
 <script>
+import Header from "./Header.vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "SignupPage",
+  components: {
+    Header,
+  },
 
   data() {
     return {
       firstname: "",
       lastname: "",
       signUpEmail: "",
-      username: "",
+      
       signUpPassword: "",
       signUpCnfPassword: "",
-      alertCustom: false,
+      checked: false,
+      alertCustom: "",
     };
   },
 
@@ -114,13 +110,13 @@ export default {
       const checkemail = this.signUpEmail.trim();
       const checkpassword = this.signUpPassword.trim();
       const checkCnfpswd = this.signUpCnfPassword.trim();
-      const checkuserN = this.username.trim();
+      const checkedornot = this.checked;
 
       if (
         checkfirstN &&
         checklastN &&
-        checkuserN &&
         checkemail &&
+        checkedornot &&
         checkpassword === checkCnfpswd
       ) {
         this.signin({
@@ -128,16 +124,15 @@ export default {
           lastname: this.lastname,
           signUpEmail: this.signUpEmail,
           checkCnfpswd: this.checkCnfpswd,
-          username: this.username,
         });
         (this.firstname = ""),
           (this.lastname = ""),
           (this.signUpEmail = ""),
           (this.checkCnfpswd = ""),
           (this.checkpassword = "");
-        this.username = "";
         this.$router.push("./ProfilePage");
       } else {
+        alert("all fields are required");
       }
     },
 
