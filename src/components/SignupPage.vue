@@ -81,7 +81,6 @@ export default {
       lastname: "",
       signUpEmail: "",
       msg: "",
-
       signUpPassword: "",
       signUpCnfPassword: "",
       checked: false,
@@ -91,6 +90,7 @@ export default {
 
   computed: {
     ...mapGetters("userData", ["isLogedin"]),
+    ...mapGetters("App", ["getUserEmail"]),
   },
 
   methods: {
@@ -103,25 +103,43 @@ export default {
       const checkpassword = this.signUpPassword.trim();
       const checkCnfpswd = this.signUpCnfPassword.trim();
       const checkedornot = this.checked;
-
+          
+      let stored = null;
       if (checkfirstN) {
         if (checklastN) {
           if (checkemail) {
             if (checkpassword) {
               if (checkCnfpswd == checkpassword) {
                 if (checkedornot) {
-                  this.signin({
-                    firstname: this.firstname,
-                    lastname: this.lastname,
-                    signUpEmail: this.signUpEmail,
-                    checkCnfpswd: this.checkCnfpswd,
-                  });
-                  (this.firstname = ""),
-                    (this.lastname = ""),
-                    (this.signUpEmail = ""),
-                    (this.checkCnfpswd = ""),
-                    (this.checkpassword = "");
-                  this.$router.push("/loginpage");
+                  let checkLocal = JSON.parse(
+                    localStorage.getItem("userDatacreD")
+                  );
+
+                  if (checkLocal && checkLocal.length) {
+                    checkLocal.forEach((element) => {
+                      if (element.signUpEmail === this.signUpEmail) {
+                        alert("user is already exist");
+                        return;
+                      } else {
+                        this.$router.push("/loginpage");
+                      }
+                    });
+                  } else {
+                    localStorage.setItem("userDatacreD", JSON.stringify(User));
+                  }
+
+                  let User = [
+                    {
+                      firstname: this.firstname,
+                      lastname: this.lastname,
+                      signUpEmail: this.signUpEmail,
+                      checkCnfpswd: this.checkCnfpswd,
+                    },
+                  ];
+                  localStorage.setItem("userDatacreD", JSON.stringify(User));
+                  let retrievedObject = localStorage.getItem("userDatacreD");
+                  stored = JSON.parse(retrievedObject);
+                  console.log(stored)
                 } else {
                   this.msg = "Please sellect terms and conditions";
                 }

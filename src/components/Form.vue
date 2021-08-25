@@ -1,22 +1,15 @@
  
 <template>
   <div>
-
-    {{getUserEmail}}
-    <div >
+    {{ getUserEmail }}
+    <div>
       <div class="has-text-black">Login Page</div>
     </div>
 
     <div class="column is-5-tablet is-2-desktop"></div>
     <section class="mt-4">
       <div class="columns is-centered">
-        <div
-          class="
-            column
-            is-10-mobile is-offset-1-mobile is-4
-            
-          "
-        >
+        <div class="column is-10-mobile is-offset-1-mobile is-4">
           <div class="box">
             <div class="field">
               <label class="label">Email</label>
@@ -44,13 +37,9 @@
             <b-button @click="Submit" type="is-danger">Log in</b-button>
           </div>
         </div>
-
-           
-                     
-                    
       </div>
     </section>
-    <p>   {{message}}</p>
+    <p>{{ message }}</p>
   </div>
 </template>
 <script>
@@ -61,7 +50,7 @@ export default {
     return {
       EmailData: "",
       PasswordData: "",
-          message:'',
+      message: "",
     };
   },
 
@@ -73,21 +62,31 @@ export default {
   methods: {
     ...mapActions("userData", ["login"]),
 
-    async Submit() {
+    Submit() {
       const newwd = this.EmailData.trim();
 
       if (newwd && this.PasswordData.trim()) {
-        if (____logincrediantlss) {
-          
-        }
-        await this.login({
-          email: this.EmailData,
-          Password: this.PasswordData,
+        let loginUserDetails = JSON.parse(localStorage.getItem("userDatacreD"));
+
+        loginUserDetails.forEach((element) => {
+          if (element.signUpEmail == this.EmailData) {
+            this.login({
+              email: this.EmailData,
+              Password: this.PasswordData,
+            });
+            this.$router.push("/ProfilePage");
+
+            return;
+          } else {
+            alert("invalid username");
+            return;
+          }
         });
+
         (this.EmailData = ""), (this.PasswordData = "");
-        this.$router.push("/ProfilePage");
+        // this.$router.push("/ProfilePage");
       } else {
-        this.message =  "please fill both input "
+        this.message = "please fill both input ";
       }
     },
   },

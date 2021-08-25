@@ -17,32 +17,13 @@ const getters = {
 };
 
 const mutations = {
-  SIGNINPAGE_DATA(state, payload) {
-    state.user.email = payload.email;
-    state.user.password = payload.password;
-    state.isLogedin = true;
-    state.firstname = payload.firstname;
-    state.lastname = payload.lastname;
-    state.checkCnfpswd = payload.checkCnfpswd;
-    state.username = payload.username;
-
-    localStorage.setItem(
-      "LoginCredentials",
-      JSON.stringify({
-        details: payload,
-      })
-    );
-    var localUserDetails = JSON.parse(localStorage.getItem("LoginCredentials"));
-
-    state.user.email = localUserDetails.details.signUpEmail;
-    console.log(localUserDetails.details);
-  },
-
   LOGINPAGE_DATA(state, payload) {
+    // let loginUserDetails = JSON.parse(localStorage.getItem("userDatacreD"));
+
     localStorage.setItem(
       "LoginDataCredentials",
       JSON.stringify({
-        // isLogedin: state.isLogedin,
+        isLogedin: state.isLogedin,
         LoginDetails: payload,
       })
     );
@@ -51,7 +32,6 @@ const mutations = {
     );
 
     state.user.email = localLoginDetails.LoginDetails.email;
-    console.log(localLoginDetails.LoginDetails);
   },
 
   LOGOUT(state) {
