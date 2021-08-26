@@ -126,6 +126,7 @@ export default {
                     });
                   } else {
                     localStorage.setItem("userDatacreD", JSON.stringify(User));
+                           this.$router.push("/loginpage");
                   }
 
                   let User = [
@@ -158,6 +159,20 @@ export default {
       } else {
         this.msg = "First Name is Mendatory";
       }
+
+                  // let User = [
+                  //   {
+                  //     firstname: this.firstname,
+                  //     lastname: this.lastname,
+                  //     signUpEmail: this.signUpEmail,
+                  //     checkCnfpswd: this.checkCnfpswd,
+                  //   },
+                  // ];
+                  // localStorage.setItem("userDatacreD", JSON.stringify(User));
+                  // let retrievedObject = localStorage.getItem("userDatacreD");
+                  // stored = JSON.parse(retrievedObject);
+                  // console.log(stored)
+
     },
   },
 };

@@ -9,10 +9,10 @@ const state = {
 
 const getters = {
   getUserEmail() {
-    return;
+    return   state.user.email 
   },
   getLoginEmail() {
-    return state.user.abc;
+    return state.user.email 
   },
 };
 
@@ -20,6 +20,7 @@ const mutations = {
   LOGINPAGE_DATA(state, payload) {
     // let loginUserDetails = JSON.parse(localStorage.getItem("userDatacreD"));
 
+    // console.log(state.LoginDetails)
     localStorage.setItem(
       "LoginDataCredentials",
       JSON.stringify({
@@ -41,8 +42,8 @@ const mutations = {
       (state.signUpEmail = ""),
       (state.firstname = ""),
       (state.lastname = ""),
-      (state.checkCnfpswd = ""),
-      localStorage.clear();
+      (state.checkCnfpswd = "")
+      // localStorage.clear();
   },
 };
 
