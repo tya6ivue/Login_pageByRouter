@@ -28,10 +28,12 @@
               <div class="control">
                 <input
                   class="input"
-                  type="password"
+                  :type="type"
                   v-model="PasswordData"
                   placeholder="********"
                 />
+
+                <button @click="showPassword">{{ btnText }}</button>
               </div>
             </div>
             <b-button @click="Submit" type="is-danger">Log in</b-button>
@@ -48,6 +50,8 @@ export default {
   name: "Form",
   data() {
     return {
+      type: "password",
+      btnText: "Show Password",
       EmailData: "",
       PasswordData: "",
       message: "",
@@ -68,25 +72,38 @@ export default {
       if (newwd && this.PasswordData.trim()) {
         let loginUserDetails = JSON.parse(localStorage.getItem("userDatacreD"));
 
-        loginUserDetails.forEach((element) => {
-          if (element.signUpEmail == this.EmailData) {
-            this.login({
-              email: this.EmailData,
-              Password: this.PasswordData,
-            });
-            this.$router.push("/ProfilePage");
+        if (loginUserDetails && loginUserDetails.length) {
+          loginUserDetails.forEach((element) => {
+            if (element.signUpEmail == this.EmailData) {
+              this.login({
+                email: this.EmailData,
+                Password: this.PasswordData,
+              });
+              this.$router.push("/ProfilePage");
 
-            return;
-          } else {
-            alert("invalid username");
-            return;
-          }
-        });
+              return;
+            } else {
+              this.message =
+                "User name or password is not matched. please try again ";
+              return;
+            }
+          });
+        } else {
+          this.message = "User name or password is not matched ";
+        }
 
         (this.EmailData = ""), (this.PasswordData = "");
-        // this.$router.push("/ProfilePage");
       } else {
         this.message = "please fill both input ";
+      }
+    },
+    showPassword() {
+      if (this.type === "password") {
+        this.type = "text";
+        this.btnText = "Hide Password";
+      } else {
+        this.type = "password";
+        this.btnText = "Show Password";
       }
     },
   },

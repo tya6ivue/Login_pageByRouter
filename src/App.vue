@@ -5,28 +5,8 @@
 </template>
 
 <script>
-
-
-// const state = {
-//   user: { email: "", password: "" },
-//   signUpEmail: "",
-//   firstname: "",
-//   lastname: "",
-//   checkCnfpswd: "",
-//   isLogedin: false,
-// };
-
-const getters  = {
-  //  getUserEmail() {
-  //   return  localUserDetails
-  // },
-}
-
-
-const mutations   =  {
-   SIGNINPAGE_DATA(payload) {
-  
-
+const mutations = {
+  SIGNINPAGE_DATA(payload) {
     localStorage.setItem(
       "LoginCredentials",
       JSON.stringify({
@@ -34,26 +14,20 @@ const mutations   =  {
       })
     );
     var localUserDetails = JSON.parse(localStorage.getItem("LoginCredentials"));
-
-    // var abc = localUserDetails.details.signUpEmail;
     console.log(localUserDetails.details);
   },
-}
+};
 
 const actions = {
   signin({ commit }, payload) {
     commit("SIGNINPAGE_DATA", payload);
   },
-}
-
+};
 
 export default {
   name: "App",
-
-getters,
-mutations,
-actions
-
+  mutations,
+  actions,
 };
 </script>
 

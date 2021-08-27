@@ -21,7 +21,6 @@
                 <b-input placeholder="e.g Garvey" v-model="lastname"></b-input>
               </b-field>
               <b-field label="Email" type="is-danger">
-                <!-- message="This email is invalid" -->
                 <b-input
                   type="email"
                   placeholder="john@gmail.com"
@@ -32,12 +31,7 @@
               </b-field>
 
               <b-field label="Password" type="is-warning">
-                <b-input
-                  value="123"
-                  type="password"
-                  v-model="signUpPassword"
-                  length="15"
-                ></b-input>
+                <b-input :type="type" v-model="signUpPassword" length="15" />
               </b-field>
               <b-field label=" Confirm   Password" type="is-warning">
                 <b-input
@@ -67,7 +61,7 @@
 
 <script>
 import Header from "./Header.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "SignupPage",
@@ -85,12 +79,16 @@ export default {
       signUpCnfPassword: "",
       checked: false,
       alertCustom: "",
-    };
-  },
 
-  computed: {
-    ...mapGetters("userData", ["isLogedin"]),
-    ...mapGetters("App", ["getUserEmail"]),
+      show1: false,
+      show2: true,
+      show3: false,
+      show4: false,
+      password: "Password",
+
+      type: "password",
+      btnText: "Show Password",
+    };
   },
 
   methods: {
@@ -103,7 +101,7 @@ export default {
       const checkpassword = this.signUpPassword.trim();
       const checkCnfpswd = this.signUpCnfPassword.trim();
       const checkedornot = this.checked;
-          
+
       let stored = null;
       if (checkfirstN) {
         if (checklastN) {
@@ -126,7 +124,7 @@ export default {
                     });
                   } else {
                     localStorage.setItem("userDatacreD", JSON.stringify(User));
-                           this.$router.push("/loginpage");
+                    this.$router.push("/loginpage");
                   }
 
                   let User = [
@@ -140,7 +138,7 @@ export default {
                   localStorage.setItem("userDatacreD", JSON.stringify(User));
                   let retrievedObject = localStorage.getItem("userDatacreD");
                   stored = JSON.parse(retrievedObject);
-                  console.log(stored)
+                  console.log(stored);
                 } else {
                   this.msg = "Please sellect terms and conditions";
                 }
@@ -160,19 +158,28 @@ export default {
         this.msg = "First Name is Mendatory";
       }
 
-                  // let User = [
-                  //   {
-                  //     firstname: this.firstname,
-                  //     lastname: this.lastname,
-                  //     signUpEmail: this.signUpEmail,
-                  //     checkCnfpswd: this.checkCnfpswd,
-                  //   },
-                  // ];
-                  // localStorage.setItem("userDatacreD", JSON.stringify(User));
-                  // let retrievedObject = localStorage.getItem("userDatacreD");
-                  // stored = JSON.parse(retrievedObject);
-                  // console.log(stored)
+      // let User = [
+      //   {
+      //     firstname: this.firstname,
+      //     lastname: this.lastname,
+      //     signUpEmail: this.signUpEmail,
+      //     checkCnfpswd: this.checkCnfpswd,
+      //   },
+      // ];
+      // localStorage.setItem("userDatacreD", JSON.stringify(User));
+      // let retrievedObject = localStorage.getItem("userDatacreD");
+      // stored = JSON.parse(retrievedObject);
+      // console.log(stored)
+    },
 
+    showPassword() {
+      if (this.type === "password") {
+        this.type = "text";
+        this.btnText = "Hide Password";
+      } else {
+        this.type = "password";
+        this.btnText = "Show Password";
+      }
     },
   },
 };
