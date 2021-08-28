@@ -18,21 +18,42 @@ import { mapGetters } from "vuex";
 import Header from "../components/Header.vue";
 export default {
   name: "ProfilePage",
+  // data() {
+  
+  // },
   components: {
     Header,
   },
+
+
+  // mounted() {
+
+  //     let data = null;
+  //     let localUserDetails = JSON.parse(localStorage.getItem("userDatacreD"));
+  //      console.log("mounted")
+  //        if (this.getUserEmail) {
+  //       data = this.getUserEmail;
+  //       console.log("gttrrtggt");
+  //     } else if (localUserDetails && localUserDetails.details) {
+  //       data = localUserDetails.details.email;
+  //       console.log();
+  //       data = localUserDetails.details.firstname;
+  //     }
+  //     return data;
+  // },
 
   computed: {
     ...mapGetters("userData", ["getUserEmail"]),
     isLoggedin() {
       let data = null;
-      let localUserDetails = JSON.parse(
-        localStorage.getItem("LoginCredentials")
-      );
+      let localUserDetails = JSON.parse(localStorage.getItem("userDatacreD"));
+
       if (this.getUserEmail) {
         data = this.getUserEmail;
+        console.log("gttrrtggt");
       } else if (localUserDetails && localUserDetails.details) {
         data = localUserDetails.details.email;
+        console.log();
         data = localUserDetails.details.firstname;
       }
       return data;
@@ -40,3 +61,7 @@ export default {
   },
 };
 </script>
+
+lifecycle method 
+mounted created 
+computed methods and watch 

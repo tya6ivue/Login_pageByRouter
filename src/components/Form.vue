@@ -72,6 +72,9 @@ export default {
       if (newwd && this.PasswordData.trim()) {
         let loginUserDetails = JSON.parse(localStorage.getItem("userDatacreD"));
 
+           console.log(loginUserDetails.firstname)
+
+
         if (loginUserDetails && loginUserDetails.length) {
           loginUserDetails.forEach((element) => {
             if (element.signUpEmail == this.EmailData) {

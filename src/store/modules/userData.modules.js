@@ -20,19 +20,20 @@ const mutations = {
   LOGINPAGE_DATA(state, payload) {
     // let loginUserDetails = JSON.parse(localStorage.getItem("userDatacreD"));
 
-    // console.log(state.LoginDetails)
     localStorage.setItem(
       "LoginDataCredentials",
       JSON.stringify({
         isLogedin: state.isLogedin,
         LoginDetails: payload,
       })
-    );
-    var localLoginDetails = JSON.parse(
-      localStorage.getItem("LoginDataCredentials")
-    );
-
+      );
+      var localLoginDetails = JSON.parse(
+        localStorage.getItem("LoginDataCredentials")
+        );
+        
+        // console.log(localLoginDetails.LoginDetails.email)
     state.user.email = localLoginDetails.LoginDetails.email;
+    console.log(state.user.email)
   },
 
   LOGOUT(state) {

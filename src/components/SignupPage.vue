@@ -2,6 +2,7 @@
   <div>
     <Header />
     <h1>{{ msg }}</h1>
+    {{this.formData}}
     <section class="mt-4">
       <div class="columns is-centered">
         <div
@@ -78,16 +79,10 @@ export default {
       signUpPassword: "",
       signUpCnfPassword: "",
       checked: false,
-      alertCustom: "",
-
-      show1: false,
-      show2: true,
-      show3: false,
-      show4: false,
       password: "Password",
-
       type: "password",
       btnText: "Show Password",
+      formData: [],
     };
   },
 
@@ -103,6 +98,7 @@ export default {
       const checkedornot = this.checked;
 
       let stored = null;
+     let updatedStore = null;
       if (checkfirstN) {
         if (checklastN) {
           if (checkemail) {
@@ -135,10 +131,20 @@ export default {
                       checkCnfpswd: this.checkCnfpswd,
                     },
                   ];
+                  // console.log(User);
                   localStorage.setItem("userDatacreD", JSON.stringify(User));
                   let retrievedObject = localStorage.getItem("userDatacreD");
                   stored = JSON.parse(retrievedObject);
-                  console.log(stored);
+                  console.log(stored)
+
+
+
+                  this.formData.push(User)
+                  localStorage.setItem("updatedCreD", JSON.stringify(this.formData))
+                   let updatedObject = localStorage.getItem("updatedCreD");
+                  updatedStore = JSON.parse(updatedObject);
+                  console.log(updatedStore)
+                  
                 } else {
                   this.msg = "Please sellect terms and conditions";
                 }
@@ -157,19 +163,6 @@ export default {
       } else {
         this.msg = "First Name is Mendatory";
       }
-
-      // let User = [
-      //   {
-      //     firstname: this.firstname,
-      //     lastname: this.lastname,
-      //     signUpEmail: this.signUpEmail,
-      //     checkCnfpswd: this.checkCnfpswd,
-      //   },
-      // ];
-      // localStorage.setItem("userDatacreD", JSON.stringify(User));
-      // let retrievedObject = localStorage.getItem("userDatacreD");
-      // stored = JSON.parse(retrievedObject);
-      // console.log(stored)
     },
 
     showPassword() {
