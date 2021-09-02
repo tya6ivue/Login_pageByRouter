@@ -4,20 +4,16 @@ import SignupPage from "./components/SignupPage";
 import ProfilePage from "../src/pages/ProfilePage.vue";
 
 function guardMyroute(to, from, next) {
-  var isAuthenticated = false;
-  if (localStorage.getItem("LoginCredentials")) isAuthenticated = true;
-  else {
-    isAuthenticated = false;
-  }
+  let LoginDatacreD = localStorage.getItem("LoginDatacreD");
 
-  if (isAuthenticated) {
+  if (LoginDatacreD) {
     if (to.fullPath == "/" || to.fullPath == "/ProfilePage") {
       next();
     } else {
       next("/");
     }
-} else {
-    if (to.fullPath == "/" || to.fullPath == "/SignupPage" ) {
+  } else {
+    if (to.fullPath == "/" || to.fullPath == "/SignupPage") {
       next();
     } else {
       next("/loginPage"); // go to '/login';
@@ -25,11 +21,11 @@ function guardMyroute(to, from, next) {
   }
 }
 function isLoggedInOrNot(to, from, next) {
-  var isAuthenticated = false;
-  if (localStorage.getItem("LoginCredentials")) isAuthenticated = true;
-  else isAuthenticated = false;
-  if (!isAuthenticated) {
-    if (to.fullPath == "/loginpage" || to.fullPath == "/SignupPage" ) {
+  var LoginDatacreD = false;
+  if (localStorage.getItem("LoginDatacreD")) LoginDatacreD = true;
+  else LoginDatacreD = false;
+  if (!LoginDatacreD) {
+    if (to.fullPath == "/loginpage" || to.fullPath == "/SignupPage") {
       next(); // allow to enter login page
     } else {
       next("/loginpage");
@@ -56,7 +52,7 @@ export default [
   {
     path: "/ProfilePage",
     component: ProfilePage,
-    // beforeEnter: guardMyroute,
+    beforeEnter: guardMyroute,
     name: ProfilePage,
   },
 

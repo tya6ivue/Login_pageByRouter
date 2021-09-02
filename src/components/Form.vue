@@ -1,9 +1,8 @@
  
 <template>
   <div>
-    {{ getUserEmail }}
     <div>
-      <div class="has-text-black">Login Page</div>
+      <div>Login Page</div>
     </div>
 
     <div class="column is-5-tablet is-2-desktop"></div>
@@ -55,33 +54,43 @@ export default {
       EmailData: "",
       PasswordData: "",
       message: "",
+      stored: [],
     };
   },
 
+  mounted() {
+    let retrievedObject = localStorage.getItem("LoginDatacreD");
+    this.stored = JSON.parse(retrievedObject);
+    if (this.stored && this.stored.length) {
+      this.sendData();
+    }
+  },
+
   computed: {
-    ...mapGetters("userData", ["isLogedin"]),
     ...mapGetters("userData", ["getUserEmail"]),
   },
 
   methods: {
-    ...mapActions("userData", ["login"]),
+    ...mapActions("userData", ["login", "RetreiveData"]),
 
     Submit() {
-      const newwd = this.EmailData.trim();
+      const newData = this.EmailData.trim();
 
-      if (newwd && this.PasswordData.trim()) {
+      if (newData && this.PasswordData.trim()) {
         let loginUserDetails = JSON.parse(localStorage.getItem("userDatacreD"));
-
-           console.log(loginUserDetails.firstname)
-
 
         if (loginUserDetails && loginUserDetails.length) {
           loginUserDetails.forEach((element) => {
-            if (element.signUpEmail == this.EmailData) {
-              this.login({
-                email: this.EmailData,
-                Password: this.PasswordData,
-              });
+            if (
+              element.signUpEmail == this.EmailData &&
+              element.checkCnfpswd == this.PasswordData
+            ) {
+              let User = {
+                firstname: "",
+              };
+
+              (User.firstname = this.EmailData),
+                localStorage.setItem("LoginDatacreD", JSON.stringify(User));
               this.$router.push("/ProfilePage");
 
               return;
@@ -108,6 +117,10 @@ export default {
         this.type = "password";
         this.btnText = "Show Password";
       }
+    },
+
+    async sendData() {
+      await this.RetreiveData(this.stored);
     },
   },
 };

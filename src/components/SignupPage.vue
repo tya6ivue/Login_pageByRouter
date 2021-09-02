@@ -2,7 +2,6 @@
   <div>
     <Header />
     <h1>{{ msg }}</h1>
-    {{this.formData}}
     <section class="mt-4">
       <div class="columns is-centered">
         <div
@@ -34,10 +33,10 @@
               <b-field label="Password" type="is-warning">
                 <b-input :type="type" v-model="signUpPassword" length="15" />
               </b-field>
-              <b-field label=" Confirm   Password" type="is-warning">
+              <b-field label=" Confirm Password" type="is-warning">
                 <b-input
                   value="123"
-                  type="password"
+                  type="text"
                   v-model="signUpCnfPassword"
                   length="15"
                 ></b-input>
@@ -79,72 +78,57 @@ export default {
       signUpPassword: "",
       signUpCnfPassword: "",
       checked: false,
-      password: "Password",
       type: "password",
-      btnText: "Show Password",
-      formData: [],
+      stored: [],
     };
   },
 
   methods: {
     ...mapActions("userData", ["signin"]),
 
-    Submit() {
+    async Submit() {
       const checkfirstN = this.firstname.trim();
       const checklastN = this.lastname.trim();
       const checkemail = this.signUpEmail.trim();
       const checkpassword = this.signUpPassword.trim();
       const checkCnfpswd = this.signUpCnfPassword.trim();
       const checkedornot = this.checked;
-
-      let stored = null;
-     let updatedStore = null;
       if (checkfirstN) {
         if (checklastN) {
           if (checkemail) {
             if (checkpassword) {
               if (checkCnfpswd == checkpassword) {
                 if (checkedornot) {
-                  let checkLocal = JSON.parse(
-                    localStorage.getItem("userDatacreD")
-                  );
-
-                  if (checkLocal && checkLocal.length) {
-                    checkLocal.forEach((element) => {
+                  let retrievedObject = localStorage.getItem("userDatacreD");
+                  this.stored = JSON.parse(retrievedObject);
+                  let duplicatePresent = false;
+                  if (this.stored && this.stored.length) {
+                    this.stored.forEach((element) => {
                       if (element.signUpEmail === this.signUpEmail) {
-                        alert("user is already exist");
-                        return;
-                      } else {
-                        this.$router.push("/loginpage");
+                        duplicatePresent = true;
                       }
                     });
+                  }
+                  if (duplicatePresent) {
+                    this.msg = "user already exist";
+                    return;
                   } else {
                     localStorage.setItem("userDatacreD", JSON.stringify(User));
                     this.$router.push("/loginpage");
                   }
 
-                  let User = [
-                    {
-                      firstname: this.firstname,
-                      lastname: this.lastname,
-                      signUpEmail: this.signUpEmail,
-                      checkCnfpswd: this.checkCnfpswd,
-                    },
-                  ];
-                  // console.log(User);
-                  localStorage.setItem("userDatacreD", JSON.stringify(User));
-                  let retrievedObject = localStorage.getItem("userDatacreD");
-                  stored = JSON.parse(retrievedObject);
-                  console.log(stored)
+                  let User = {
+                    firstname: "",
+                    lastname: "",
+                    signUpEmail: "",
+                    checkCnfpswd: "",
+                  };
 
-
-
-                  this.formData.push(User)
-                  localStorage.setItem("updatedCreD", JSON.stringify(this.formData))
-                   let updatedObject = localStorage.getItem("updatedCreD");
-                  updatedStore = JSON.parse(updatedObject);
-                  console.log(updatedStore)
-                  
+                  (User.firstname = this.firstname),
+                    (User.lastname = this.lastname),
+                    (User.signUpEmail = this.signUpEmail),
+                    (User.checkCnfpswd = this.signUpCnfPassword),
+                    await this.signin(User);
                 } else {
                   this.msg = "Please sellect terms and conditions";
                 }
@@ -164,19 +148,6 @@ export default {
         this.msg = "First Name is Mendatory";
       }
     },
-
-    showPassword() {
-      if (this.type === "password") {
-        this.type = "text";
-        this.btnText = "Hide Password";
-      } else {
-        this.type = "password";
-        this.btnText = "Show Password";
-      }
-    },
   },
 };
 </script>
-
-<style>
-</style>

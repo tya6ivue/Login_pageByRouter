@@ -57,7 +57,16 @@ export default {
     return {
       logedin: false,
       userEmail: "",
+      stored: "",
     };
+  },
+
+  mounted() {
+    let retrievedObject = localStorage.getItem("LoginDatacreD");
+    this.stored = JSON.parse(retrievedObject);
+    if (this.stored && this.stored.length) {
+      this.sendData();
+    }
   },
 
   computed: {
@@ -67,16 +76,12 @@ export default {
 
     isLoggedin() {
       let data = null;
-      let localUserDetails = JSON.parse(
-        localStorage.getItem("LoginCredentials")
-      );
+      let localUserDetails = JSON.parse(localStorage.getItem("LoginDatacreD"));
 
       if (this.getUserEmail) {
         data = this.getUserEmail;
-      } else if (localUserDetails && localUserDetails.details) {
-        data = localUserDetails.details.email;
-
-        data = localUserDetails.details.firstname;
+      } else if (localUserDetails && localUserDetails.firstname) {
+        data = localUserDetails.firstname;
       }
 
       return data;

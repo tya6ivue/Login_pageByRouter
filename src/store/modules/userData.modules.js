@@ -1,54 +1,49 @@
 const state = {
   user: { email: "", password: "" },
-  signUpEmail: "",
-  firstname: "",
-  lastname: "",
-  checkCnfpswd: "",
-  isLogedin: false,
+  newDATA: [],
+  ProfileEmail: "",
 };
 
 const getters = {
   getUserEmail() {
-    return   state.user.email 
-  },
-  getLoginEmail() {
-    return state.user.email 
+    return state.user.email;
   },
 };
 
 const mutations = {
-  LOGINPAGE_DATA(state, payload) {
-    // let loginUserDetails = JSON.parse(localStorage.getItem("userDatacreD"));
+  SIGNINPAGE_DATA(state, payload) {
+    state.newDATA.push(payload);
+    localStorage.setItem("userDatacreD", JSON.stringify(state.newDATA));
+  },
 
+  LOGINPAGE_DATA(state, payload) {
     localStorage.setItem(
       "LoginDataCredentials",
       JSON.stringify({
         isLogedin: state.isLogedin,
         LoginDetails: payload,
       })
-      );
-      var localLoginDetails = JSON.parse(
-        localStorage.getItem("LoginDataCredentials")
-        );
-        
-        // console.log(localLoginDetails.LoginDetails.email)
-    state.user.email = localLoginDetails.LoginDetails.email;
-    console.log(state.user.email)
+    );
+    let retrievedObject = localStorage.getItem("LoginDatacreD");
+    let stored = JSON.parse(retrievedObject);
+    state.user.email = stored;
   },
 
-  LOGOUT(state) {
-    (state.user.email = ""),
-      (state.user.password = ""),
-      (state.isLogedin = false),
-      (state.signUpEmail = ""),
-      (state.firstname = ""),
-      (state.lastname = ""),
-      (state.checkCnfpswd = "")
-      // localStorage.clear();
+  LOGOUT() {
+    localStorage.removeItem("localUserDetails");
+    localStorage.removeItem("LoginDatacreD", "dfgh");
+  },
+
+  RETREIVEDATA(state, payload) {
+    state.ProfileEmail = payload;
   },
 };
 
 const actions = {
+  RetreiveData({ commit }, payload) {
+    commit("RETREIVEDATA", payload);
+  },
+
   signin({ commit }, payload) {
     commit("SIGNINPAGE_DATA", payload);
   },
