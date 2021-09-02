@@ -30,8 +30,6 @@ const mutations = {
   },
 
   LOGOUT() {
-    console.log("dwfghrffghtr")
-    //  localStorage.removeItem("localUserDetails");
     localStorage.removeItem("LoginDatacreD");
   },
 
