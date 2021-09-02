@@ -30,8 +30,9 @@ const mutations = {
   },
 
   LOGOUT() {
-    localStorage.removeItem("localUserDetails");
-    localStorage.removeItem("LoginDatacreD", "dfgh");
+    console.log("dwfghrffghtr")
+    //  localStorage.removeItem("localUserDetails");
+    localStorage.removeItem("LoginDatacreD");
   },
 
   RETREIVEDATA(state, payload) {
