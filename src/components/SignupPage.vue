@@ -37,14 +37,14 @@
               </b-field>
 
               <b-field label="Password" type="is-warning">
-                <b-input :type="type" v-model="signUpPassword" maxlength="8" minlength="8" />
+                <b-input :type="type" v-model="signUpPassword" maxlength="16" minlength="8" />
               </b-field>
               <b-field label=" Confirm Password" type="is-warning">
                 <b-input
                   value="123"
                   type="text"
                   v-model="signUpCnfPassword"
-                  maxlength="8"
+                  maxlength="16"
                   minlength="8"
                 ></b-input>
               </b-field>
@@ -90,12 +90,6 @@ export default {
     };
   },
 
-
-  //  mounted() {
-      
-  //  },
-
-
   methods: {
     ...mapActions("userData", ["signin"]),
 
@@ -112,7 +106,7 @@ export default {
             if (checkpassword) {
               if (checkCnfpswd == checkpassword ) {
                 if (checkedornot) {
-                  if (checkCnfpswd.length == 8  ) {
+                  if (checkCnfpswd.length > 7  ) {
                     
                   
                   let retrievedObject = localStorage.getItem("userDatacreD");
@@ -126,8 +120,6 @@ export default {
                       if (element.checkCnfpswd === this.signUpPassword) {
                           duplicatePresent = true;
                       }
-                   
-
                     });
                   }
                   if (duplicatePresent) {
