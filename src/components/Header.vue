@@ -11,32 +11,44 @@
         </b-navbar-item>
       </template>
       <template #end>
-        <b-navbar-item tag="router-link" :to="{ path: '/ProfilePage' }">
-          <div v-if="isLoggedin">
-            <a>
-              <strong>{{ isLoggedin }}</strong>
-            </a>
-          </div>
+        <b-navbar-item
+          v-if="isLoggedin"
+          tag="router-link"
+          :to="{ path: '/ProfilePage' }"
+        >
+          <a>
+            <strong>{{ isLoggedin }}</strong>
+          </a>
         </b-navbar-item>
 
-        <b-navbar-item tag="router-link" :to="{ path: '/loginpage' }">
-          <div class="buttons" @click="logOutButton" v-if="isLoggedin">
+        <b-navbar-item
+          tag="router-link"
+          :to="{ path: '/loginpage' }"
+          v-if="isLoggedin"
+        >
+          <div class="buttons" @click="logOutButton">
             <a class="button is-light">
               <strong>Log out </strong>
             </a>
           </div>
         </b-navbar-item>
 
-        <b-navbar-item tag="router-link" :to="{ path: '/SignupPage' }">
-          <div class="buttons" v-if="!isLoggedin">
-            <a class="button is-light">
-              <strong>Sign up</strong>
-            </a>
-          </div>
+        <b-navbar-item
+          v-if="!isLoggedin"
+          tag="router-link"
+          :to="{ path: '/SignupPage' }"
+        >
+          <a class="button is-light">
+            <strong>Sign up</strong>
+          </a>
         </b-navbar-item>
 
-        <b-navbar-item tag="router-link" :to="{ path: '/loginpage' }">
-          <div class="buttons" v-if="!isLoggedin">
+        <b-navbar-item
+          v-if="!isLoggedin"
+          tag="router-link"
+          :to="{ path: '/loginpage' }"
+        >
+          <div class="buttons">
             <a class="button is-light">
               <strong>Log in </strong>
             </a>
