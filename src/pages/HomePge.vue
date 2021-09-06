@@ -6,7 +6,7 @@
       <p>Home Page</p>
       <br />
 
-      <b-dropdown v-model="filterBy" aria-role="list">
+      <b-dropdown v-model="filterBy">
         <template v-if="isPublic" #trigger>
           <b-button :label="filterBy" @click="filterByName" />
         </template>
@@ -38,7 +38,7 @@
           <div class="media">
             <b-icon class="media-left" icon="earth"></b-icon>
             <div class="media-content">
-              <h3>By Asc</h3>
+              <h3>By Ascending</h3>
             </div>
           </div>
         </b-dropdown-item>
@@ -47,7 +47,7 @@
           <div class="media">
             <b-icon class="media-left" icon="account-multiple"></b-icon>
             <div class="media-content">
-              <h3>By Desc</h3>
+              <h3>By Descending</h3>
             </div>
           </div>
         </b-dropdown-item>

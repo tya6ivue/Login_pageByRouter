@@ -21,11 +21,6 @@
                 <b-input placeholder="e.g Garvey" v-model="lastname"></b-input>
               </b-field>
 
-
-
-
-
-              
               <b-field label="Email" type="is-danger">
                 <b-input
                   type="email"
@@ -37,7 +32,12 @@
               </b-field>
 
               <b-field label="Password" type="is-warning">
-                <b-input :type="type" v-model="signUpPassword" maxlength="16" minlength="8" />
+                <b-input
+                  :type="type"
+                  v-model="signUpPassword"
+                  maxlength="16"
+                  minlength="8"
+                />
               </b-field>
               <b-field label=" Confirm Password" type="is-warning">
                 <b-input
@@ -104,57 +104,51 @@ export default {
         if (checklastN) {
           if (checkemail) {
             if (checkpassword) {
-              if (checkCnfpswd == checkpassword ) {
+              if (checkCnfpswd == checkpassword) {
                 if (checkedornot) {
-                  if (checkCnfpswd.length > 7  ) {
-                    
-                  
-                  let retrievedObject = localStorage.getItem("userDatacreD");
-                  this.stored = JSON.parse(retrievedObject);
-                  let duplicatePresent = false;
-                  if (this.stored && this.stored.length) {
-                    this.stored.forEach((element) => {
-                      if (element.signUpEmail === this.signUpEmail) {
-                        duplicatePresent = true;
-                      }
-                      if (element.checkCnfpswd === this.signUpPassword) {
+                  if (checkCnfpswd.length > 7) {
+                    let retrievedObject = localStorage.getItem("userDatacreD");
+                    this.stored = JSON.parse(retrievedObject);
+                    let duplicatePresent = false;
+                    if (this.stored && this.stored.length) {
+                      this.stored.forEach((element) => {
+                        if (element.signUpEmail === this.signUpEmail) {
                           duplicatePresent = true;
-                      }
-                    });
-                  }
-                  if (duplicatePresent) {
-                    this.msg = "user already exist";
-                    return;
+                        }
+                        if (element.checkCnfpswd === this.signUpPassword) {
+                          duplicatePresent = true;
+                        }
+                      });
+                    }
+                    if (duplicatePresent) {
+                      this.msg = "user already exist";
+                      return;
+                    } else {
+                      localStorage.setItem(
+                        "userDatacreD",
+                        JSON.stringify(User)
+                      );
+                      this.$router.push("/loginpage");
+                    }
+
+                    let User = {
+                      firstname: "",
+                      lastname: "",
+                      signUpEmail: "",
+                      checkCnfpswd: "",
+                    };
+
+                    (User.firstname = this.firstname),
+                      (User.lastname = this.lastname),
+                      (User.signUpEmail = this.signUpEmail),
+                      (User.checkCnfpswd = this.signUpCnfPassword),
+                      await this.signin(User);
                   } else {
-                    localStorage.setItem("userDatacreD", JSON.stringify(User));
-                    this.$router.push("/loginpage"); 
+                    this.msg = "Password must be equals to 8 digits";
                   }
-
-                  let User = {
-                    firstname: "",
-                    lastname: "",
-                    signUpEmail: "",
-                    checkCnfpswd: "",
-                  };
-
-                  (User.firstname = this.firstname),
-                    (User.lastname = this.lastname),
-                    (User.signUpEmail = this.signUpEmail),
-                    (User.checkCnfpswd = this.signUpCnfPassword),
-                    await this.signin(User);
-                }
-                
-                    else {
-                  this.msg = "Password must be equals to 8 digits"
-                }
-                }
-                
-                else {
+                } else {
                   this.msg = "Please sellect terms and conditions";
                 }
-                
-                
-            
               } else {
                 this.msg = "Password Did not Match, Try Again.";
               }

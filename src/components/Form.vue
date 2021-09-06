@@ -4,8 +4,6 @@
     <div>
       <div>Login Page</div>
     </div>
-
-    <div class="column is-5-tablet is-2-desktop"></div>
     <section class="mt-4">
       <div class="columns is-centered">
         <div class="column is-10-mobile is-offset-1-mobile is-4">
