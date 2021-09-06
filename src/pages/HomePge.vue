@@ -5,112 +5,53 @@
     <div>
       <p>Home Page</p>
       <br />
-<template>
-    <b-dropdown v-model="isPublic" aria-role="list">
-        <template v-if="isPublic" label="sdfg" #trigger>
-            <b-button
-               label="based on name!"
-                @click="xxxxxxxxxx"
-                type="is-primary"
-            />
-        </template>
 
-        <template v-else #trigger>
-            <b-button
-                label="based on user name"
-                @click="xxxxxxxxx"
-                type="is-primary"
-             />
-        </template>
-
-
-        <b-dropdown-item :value="true" aria-role="listitem">
-            <div class="media">
-          
-                <div class="media-content">
-                    <h3>based on name</h3>
-                    
-                  
-                </div>
-            </div>
-        </b-dropdown-item>
-
-        <b-dropdown-item :value="false" aria-role="listitem">
-            <div class="media">
-                <b-icon class="media-left" icon="account-multiple"></b-icon>
-                <div class="media-content">
-                    <h3>based on  user name </h3>
-                </div>
-            </div>
-        </b-dropdown-item>
-    </b-dropdown>
-</template>
-
-
-<template>
-    <b-dropdown v-model="isPublic" aria-role="list">
-
+      <b-dropdown v-model="filterBy" aria-role="list">
         <template v-if="isPublic" #trigger>
-            <b-button
-            @click="xxxxxxxx"
-                label="Sort by ascending"
-                type="is-primary" />
+          <b-button :label="filterBy" @click="filterByName" />
         </template>
 
-        <template v-else #trigger>
-            <b-button
-            @click="xxxxxxxxx"
-         
-                label="Sort by descending"
-                type="is-primary"
-                icon-left="account-multiple"
-                icon-right="menu-down" />
-        </template>
-        <b-dropdown-item :value="true" aria-role="listitem">
-            <div class="media">
-                <b-icon class="media-left" icon="earth"></b-icon>
-                <div class="media-content">
-                    <h3>Sort by ascending</h3>
-                </div>
+        <b-dropdown-item :value="'Name'" aria-role="listitem">
+          <div class="media">
+            <b-icon class="media-left" icon="earth"></b-icon>
+            <div class="media-content">
+              <h3>By Name</h3>
             </div>
+          </div>
         </b-dropdown-item>
 
-        <b-dropdown-item :value="false" aria-role="listitem">
-            <div class="media">
-                <b-icon class="media-left" icon="account-multiple"></b-icon>
-                <div class="media-content">
-                    <h3>Sort by descending</h3>
-                </div>
+        <b-dropdown-item value="Email" aria-role="listitem">
+          <div class="media">
+            <b-icon class="media-left" icon="account-multiple"></b-icon>
+            <div class="media-content">
+              <h3>By Email</h3>
             </div>
-        </b-dropdown-item>
-    </b-dropdown>
-</template>
-
-        <!-- <b-dropdown-item>
-          <button @click="byName">Sort by Name</button>
-        </b-dropdown-item>
-        <b-dropdown-item>
-          <button @click="byUserName">Sort by user Name</button>
+          </div>
         </b-dropdown-item>
       </b-dropdown>
-      <b-dropdown aria-role="list">
-        <template #trigger="{ active }">
-          <b-button
-            label="based on order!"
-            type="is-primary"
-            :icon-right="active ? 'menu-up' : 'menu-down'"
-          />
-        </template>
 
-        <b-dropdown-item>
-          <button @click="ascending">Sort by ascending</button></b-dropdown-item
-        >
-        <b-dropdown-item>
-          <button @click="descending">
-            Sort by descending
-          </button></b-dropdown-item
-        >
-      </b-dropdown> -->
+      <b-dropdown v-model="filterOrder" aria-role="list">
+        <template v-if="Public" #trigger>
+          <b-button :label="filterOrder" />
+        </template>
+        <b-dropdown-item value="By Ascending" aria-role="listitem">
+          <div class="media">
+            <b-icon class="media-left" icon="earth"></b-icon>
+            <div class="media-content">
+              <h3>By Asc</h3>
+            </div>
+          </div>
+        </b-dropdown-item>
+
+        <b-dropdown-item value="By Descending" aria-role="listitem">
+          <div class="media">
+            <b-icon class="media-left" icon="account-multiple"></b-icon>
+            <div class="media-content">
+              <h3>By Desc</h3>
+            </div>
+          </div>
+        </b-dropdown-item>
+      </b-dropdown>
 
       <table class="table">
         <thead>
@@ -136,11 +77,49 @@ export default {
   name: "HomePge",
   data() {
     return {
-         isPublic: true,
+      isPublic: true,
       DataForSort: [],
       sortByName: [],
+      check: true,
+      Public: true,
+      filterBy: "Filter by",
+      filterOrder: "filter by order",
     };
   },
+
+  watch: {
+    filterBy(newVal) {
+      if (newVal === "Name") {
+        if (this.filterOrder === "By Ascending") {
+          this.AsendName();
+        } else if (this.filterOrder === "By Descending") {
+          this.descendingName();
+        }
+      } else if (newVal === "Email") {
+        if (this.filterOrder === "By Ascending") {
+          this.AsendUserName();
+        } else if (this.filterOrder === "By Descending") {
+          this.descendingUserName();
+        }
+      }
+    },
+    filterOrder(newVal) {
+      if (newVal === "By Ascending") {
+        if (this.filterBy === "Name") {
+          this.AsendName();
+        } else if (this.filterBy === "Email") {
+          this.AsendUserName();
+        }
+      } else if (newVal === "By Descending") {
+        if (this.filterBy === "Name") {
+          this.descendingName();
+        } else if (this.filterBy === "Email") {
+          this.descendingUserName();
+        }
+      }
+    },
+  },
+
   components: {
     Header,
   },
@@ -151,6 +130,8 @@ export default {
   },
 
   methods: {
+    filterByName() {},
+
     AsendName() {
       if (this.DataForSort && this.DataForSort.length) {
         this.sortByName.push(this.DataForSort);
