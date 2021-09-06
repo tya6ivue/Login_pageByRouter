@@ -7,7 +7,7 @@
       <br />
 
       <b-dropdown v-model="filterBy">
-        <template v-if="isPublic" #trigger>
+        <template #trigger>
           <b-button :label="filterBy" @click="filterByName" />
         </template>
 
@@ -31,7 +31,7 @@
       </b-dropdown>
 
       <b-dropdown v-model="filterOrder" aria-role="list">
-        <template v-if="Public" #trigger>
+        <template #trigger>
           <b-button :label="filterOrder" />
         </template>
         <b-dropdown-item value="By Ascending" aria-role="listitem">
@@ -77,11 +77,9 @@ export default {
   name: "HomePge",
   data() {
     return {
-      isPublic: true,
       DataForSort: [],
       sortByName: [],
-      check: true,
-      Public: true,
+
       filterBy: "Filter by",
       filterOrder: "filter by order",
     };
@@ -130,8 +128,6 @@ export default {
   },
 
   methods: {
-    filterByName() {},
-
     AsendName() {
       if (this.DataForSort && this.DataForSort.length) {
         this.sortByName.push(this.DataForSort);

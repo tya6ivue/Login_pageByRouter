@@ -19,7 +19,7 @@ export default {
   name: "ProfilePage",
   data() {
     return {
-      stored: [],
+      stored: {},
     };
   },
   components: {
