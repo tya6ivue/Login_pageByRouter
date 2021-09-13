@@ -2,6 +2,7 @@ import HomePge from "./pages/HomePge.vue";
 import LoginPage from "../src/components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import ProfilePage from "../src/pages/ProfilePage.vue";
+import Modals from "./components/Modals";
 
 function guardMyroute(to, from, next) {
   let LoginDatacreD = localStorage.getItem("LoginDatacreD");
@@ -61,6 +62,14 @@ export default [
     component: SignupPage,
     beforeEnter: isLoggedInOrNot,
     name: SignupPage,
+  },
+
+
+  {
+    path: "/Modals",
+    component: Modals,
+  
+    name: Modals,
   },
 
   { path: "/:catchAll(.*)", beforeEnter: guardMyroute, component: HomePge },

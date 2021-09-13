@@ -8,7 +8,7 @@
 
       <b-dropdown v-model="filterBy">
         <template #trigger>
-          <b-button :label="filterBy" @click="filterByName" />
+          <b-button :label="filterBy" />
         </template>
 
         <b-dropdown-item :value="'Name'" aria-role="listitem">
@@ -61,23 +61,67 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="tr" v-for="user in DataForSort" :key="user.id">
+          <tr class="tr" v-for="user in this.getDataforHome" :key="user.id">
             <td>{{ user.firstname }} {{ user.lastname }}</td>
             <td>{{ user.signUpEmail }}</td>
+            <td>
+              <b-button
+                label="Edit"
+                type="is-primary"
+                size="is-small"
+                @click="handleEdit(user)"
+              />
+              <b-button
+                label="delete"
+                type="is-primary"
+                size="is-small"
+                @click="handledelete(user)"
+              />
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+
+    <!-- 
+        <b-button
+            label="Edit"
+            type="is-primary"
+            size="is-small"
+            @click="isComponentModalActive = true" /> -->
+
+    <b-modal
+      v-model="isComponentModalActive"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-label="Example Modal"
+      aria-modal
+    >
+      <template #default="props">
+        <Modals :formData="formProps" @close="props.close"> djej</Modals>
+      </template>
+    </b-modal>
   </div>
 </template>
 
 <script>
+// import { use } from 'vue/types/umd';
+import { mapGetters } from "vuex";
 import Header from "../components/Header.vue";
+import Modals from "../components/Modals.vue";
 export default {
   name: "HomePge",
   data() {
     return {
-      DataForSort: [],
+      isComponentModalActive: false,
+      formProps: {
+        FirstName: "",
+        LastName: "",
+        email: "",
+      },
+      // getDataforHome: [],
       sortByName: [],
 
       filterBy: "Filter by",
@@ -120,45 +164,62 @@ export default {
 
   components: {
     Header,
+    Modals,
   },
 
-  mounted() {
-    let ProfileData = localStorage.getItem("userDatacreD");
-    this.DataForSort = JSON.parse(ProfileData);
+  computed: {
+    ...mapGetters("userData", ["getDataforHome"]),
   },
+
+  //  mounted() {
+
+  // //  console.log(this.getDataforHome)
+  //  this.getDataforHome = this.getDataforHome
+
+  //  },
 
   methods: {
     AsendName() {
-      if (this.DataForSort && this.DataForSort.length) {
-        this.sortByName.push(this.DataForSort);
+      if (this.getDataforHome && this.getDataforHome.length) {
+        this.sortByName.push(this.getDataforHome);
 
-        this.DataForSort.sort(function (a, b) {
+        this.getDataforHome.sort(function (a, b) {
           return a.firstname.localeCompare(b.firstname);
         });
       }
     },
 
     AsendUserName() {
-      if (this.DataForSort && this.DataForSort) {
-        this.DataForSort.sort(function (a, b) {
+      if (this.getDataforHome && this.getDataforHome) {
+        this.getDataforHome.sort(function (a, b) {
           return a.signUpEmail.localeCompare(b.signUpEmail);
         });
       }
     },
 
     descendingName() {
-      if (this.DataForSort && this.DataForSort) {
-        this.DataForSort.sort(function (a, b) {
+      if (this.getDataforHome && this.getDataforHome) {
+        this.getDataforHome.sort(function (a, b) {
           return b.firstname.localeCompare(a.firstname);
         });
       }
     },
     descendingUserName() {
-      if (this.DataForSort && this.DataForSort) {
-        this.DataForSort.sort(function (a, b) {
+      if (this.getDataforHome && this.getDataforHome) {
+        this.getDataforHome.sort(function (a, b) {
           return b.signUpEmail.localeCompare(a.signUpEmail);
         });
       }
+    },
+    handleEdit(user) {
+      (this.isComponentModalActive = true),
+        (this.formProps.FirstName = user.firstname),
+        (this.formProps.LastName = user.lastname),
+        (this.formProps.email = user.signUpEmail);
+    },
+
+    handledelete(user) {
+      this.getDataforHome.splice(user, 1);
     },
   },
 };
