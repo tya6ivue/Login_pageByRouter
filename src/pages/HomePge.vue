@@ -61,7 +61,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="tr" v-for="user in this.getDataforHome" :key="user.id">
+          <tr
+            class="tr"
+            v-for="(user, index) in this.getDataforHome"
+            :key="user.id"
+          >
             <td>{{ user.firstname }} {{ user.lastname }}</td>
             <td>{{ user.signUpEmail }}</td>
             <td>
@@ -75,20 +79,13 @@
                 label="delete"
                 type="is-primary"
                 size="is-small"
-                @click="handledelete(user)"
+                @click="handledelete(user, index)"
               />
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-
-    <!-- 
-        <b-button
-            label="Edit"
-            type="is-primary"
-            size="is-small"
-            @click="isComponentModalActive = true" /> -->
 
     <b-modal
       v-model="isComponentModalActive"
@@ -100,15 +97,18 @@
       aria-modal
     >
       <template #default="props">
-        <Modals :formData="formProps" @close="props.close"> djej</Modals>
+        <Modals
+          ref="Modalk"
+          :formData="formProps"
+          @close="props.close"
+        ></Modals>
       </template>
     </b-modal>
   </div>
 </template>
 
 <script>
-// import { use } from 'vue/types/umd';
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import Header from "../components/Header.vue";
 import Modals from "../components/Modals.vue";
 export default {
@@ -116,12 +116,7 @@ export default {
   data() {
     return {
       isComponentModalActive: false,
-      formProps: {
-        FirstName: "",
-        LastName: "",
-        email: "",
-      },
-      // getDataforHome: [],
+      formProps: {},
       sortByName: [],
 
       filterBy: "Filter by",
@@ -171,14 +166,8 @@ export default {
     ...mapGetters("userData", ["getDataforHome"]),
   },
 
-  //  mounted() {
-
-  // //  console.log(this.getDataforHome)
-  //  this.getDataforHome = this.getDataforHome
-
-  //  },
-
   methods: {
+    ...mapActions("userData", ["deleteFormData"]),
     AsendName() {
       if (this.getDataforHome && this.getDataforHome.length) {
         this.sortByName.push(this.getDataforHome);
@@ -213,13 +202,16 @@ export default {
     },
     handleEdit(user) {
       (this.isComponentModalActive = true),
-        (this.formProps.FirstName = user.firstname),
-        (this.formProps.LastName = user.lastname),
-        (this.formProps.email = user.signUpEmail);
+        (this.formProps["FirstName"] = user.firstname),
+        (this.formProps["LastName"] = user.lastname),
+        (this.formProps["email"] = user.signUpEmail);
+      if (this.$refs.Modalk) {
+        this.$refs.Modalk.getData();
+      }
     },
 
     handledelete(user) {
-      this.getDataforHome.splice(user, 1);
+      this.deleteFormData(user);
     },
   },
 };

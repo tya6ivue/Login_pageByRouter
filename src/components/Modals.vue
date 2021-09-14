@@ -1,7 +1,6 @@
 <template>
   <div>
     <form action="">
-      <!-- {{this.formData}} -->
       <div class="modal-card" style="width: auto">
         <header class="modal-card-head">
           <p class="modal-card-title">Login</p>
@@ -30,7 +29,7 @@
           </b-field>
         </section>
         <footer class="modal-card-foot">
-          <b-button label="Close" @click="$emit('close')" />
+          <b-button label="Close" @click="closeModal" />
           <b-button
             label="Save changes"
             @click="saveChanges"
@@ -47,7 +46,10 @@ import { mapActions } from "vuex";
 export default {
   name: "Modals",
   props: {
-    formData: Object,
+    formData: {
+      default: () => {},
+      type: Object,
+    },
   },
   data() {
     return {
@@ -62,27 +64,27 @@ export default {
   },
 
   mounted() {
-    //    console.log("sdfghj")
-    // console.log(this.formData);
     (this.Firsttname = this.formData.FirstName),
       (this.Lastname = this.formData.LastName);
   },
 
   methods: {
-    // ...mapActions("UserData", ["EditData"]),
     ...mapActions("userData", ["EditData"]),
 
     saveChanges() {
       (this.updatedValue.FirstName = this.Firsttname),
         (this.updatedValue.LastName = this.Lastname);
       this.updatedValue.Email = this.formData.email;
-      //   console.log(this.updatedValue);
       this.EditData(this.updatedValue);
-      console.log("ye haiiii first");
-      console.log(" ye dusra");
-
       this.$emit("close");
       (this.Firsttname = ""), (this.Lastname = "");
+    },
+    closeModal() {
+      this.$emit("close"), (this.Firsttname = ""), (this.Lastname = "");
+    },
+    getData() {
+      (this.Firsttname = this.formData.FirstName),
+        (this.Lastname = this.formData.LastName);
     },
   },
 };

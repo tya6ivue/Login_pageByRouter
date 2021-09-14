@@ -5,38 +5,33 @@
 </template>
 
 <script>
-
 import { mapActions } from "vuex";
 export default {
   name: "App",
   data() {
-    return{
-      DataForSort: []
-    }
+    return {
+      DataForSort: [],
+    };
   },
 
-methods: {
-
+  methods: {
     ...mapActions("userData", ["seperate"]),
 
-     Retreive() {
-       this.seperate(this.DataForSort)
-     }
-
-},
-
- mounted() {
-    let ProfileData = localStorage.getItem("userDatacreD");
-       if ( ProfileData  && ProfileData.length) {
-         
-         this.DataForSort = JSON.parse(ProfileData);
-       }
-        
-        if (this.DataForSort && this.DataForSort.length) {
-               this.Retreive()
-        }
+    Retreive() {
+      this.seperate(this.DataForSort);
+    },
   },
 
+  mounted() {
+    let ProfileData = localStorage.getItem("userDatacreD");
+    if (ProfileData && ProfileData.length) {
+      this.DataForSort = JSON.parse(ProfileData);
+    }
+
+    if (this.DataForSort && this.DataForSort.length) {
+      this.Retreive();
+    }
+  },
 };
 </script>
 

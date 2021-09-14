@@ -6,17 +6,12 @@ const state = {
 
 const getters = {
   getUserEmail() {
-    // console.log("sdfgh")
-    // console.log(state.user.email)
     return state.user.email;
-
   },
 
   getDataforHome() {
-    // console.log("dfghjhgfd")
-    // console.log(state.newDATA)
-    return state.newDATA
-  }
+    return state.newDATA;
+  },
 };
 
 const mutations = {
@@ -46,35 +41,26 @@ const mutations = {
     state.ProfileEmail = payload;
   },
   EDIT_DATA(state, payload) {
-    console.log("sdfghj")
-        console.log(payload)
-        console.log(state.newDATA)
+    state.newDATA.forEach((element) => {
+      if (element.signUpEmail == payload.Email) {
+        element.firstname = payload.FirstName;
+        element.lastname = payload.LastName;
 
-          state.newDATA.forEach(element => {
-            console.log(payload.Email)
-            console.log(element.signUpEmail)
-                 if (element.signUpEmail == payload.Email) {
-                       element.firstname = payload.FirstName 
-                    element.lastname  =    payload.LastName
-
-                    localStorage.setItem("userDatacreD", JSON.stringify(state.newDATA));
-                  }
-                 else console.log("dsdvfdsfds")
-          });
-
-
-        //  if (payload.Email == state.signUpEmail) {
-        //       alert("mil  gye value")
-        //  }
-        //  else("pata na kya hi haiii")
-
-         
+        localStorage.setItem("userDatacreD", JSON.stringify(state.newDATA));
+      }
+    });
   },
   SEPERATE(state, payload) {
-     state.newDATA = payload
-    //  console.log(state.newDATA)
-  }
+    state.newDATA = payload;
+  },
+  DELETE_FOR_D(state, payload) {
+    const index = state.newDATA.findIndex(
+      (x) => x.firstname === payload.firstname
+    );
+    state.newDATA.splice(index, 1);
 
+    localStorage.setItem("userDatacreD", JSON.stringify(state.newDATA));
+  },
 };
 
 const actions = {
@@ -94,13 +80,16 @@ const actions = {
     context.commit("LOGOUT", payload);
   },
 
-  EditData({commit}, payload) {
-      commit("EDIT_DATA", payload)
+  EditData({ commit }, payload) {
+    commit("EDIT_DATA", payload);
   },
 
-  seperate({commit}, payload) {
-      commit("SEPERATE", payload)
-  }
+  seperate({ commit }, payload) {
+    commit("SEPERATE", payload);
+  },
+  deleteFormData({ commit }, payload) {
+    commit("DELETE_FOR_D", payload);
+  },
 };
 
 export default {

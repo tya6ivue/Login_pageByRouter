@@ -83,9 +83,7 @@ export default {
 
   computed: {
     ...mapState("userData", ["isLogedin"]),
-
     ...mapGetters("userData", ["getUserEmail"]),
-
     isLoggedin() {
       let data = null;
       let localUserDetails = JSON.parse(localStorage.getItem("LoginDatacreD"));
