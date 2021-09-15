@@ -1,20 +1,13 @@
  
 <template>
   <div>
-    <div class="column is-5-tablet is-2-desktop">
-      <p class="subtitle">Home Page</p>
+    <div>
+      <div>Login Page</div>
     </div>
     <section class="mt-4">
       <div class="columns is-centered">
-        <div
-          class="
-            column
-            is-10-mobile is-offset-1-mobile is-4
-            has-background-color-darkhttps://github.com/tya6ivue/Login_pageByRouter.git
-          "
-        >
+        <div class="column is-10-mobile is-offset-1-mobile is-4">
           <div class="box">
-            <!-- <p class=" mb-4" v-if="message">{{message}}</p> -->
             <div class="field">
               <label class="label">Email</label>
               <div class="control">
@@ -32,66 +25,100 @@
               <div class="control">
                 <input
                   class="input"
-                  type="password"
+                  :type="type"
                   v-model="PasswordData"
                   placeholder="********"
                 />
+
+                <button @click="showPassword">{{ btnText }}</button>
               </div>
             </div>
             <b-button @click="Submit" type="is-danger">Log in</b-button>
-            <!-- <button class="button is-fullwidth is-Danger is-lighht" >Log in</button> -->
           </div>
         </div>
       </div>
     </section>
-    <!-- <div class="text-center">
-      <v-snackbar v-model="CheckInputBar">
-        {{ AlertMsg }}
-
-        <template v-slot:action="{ attrs }">
-          <v-btn color="red" text v-bind="attrs" @click="CheckValue = false">
-            Close
-          </v-btn>
-        </template>
-      </v-snackbar>
-    </div> -->
+    <p>{{ message }}</p>
   </div>
 </template>
 <script>
-// import { mapActions } from 'vuex'
-
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Form",
   data() {
     return {
+      type: "password",
+      btnText: "Show Password",
       EmailData: "",
       PasswordData: "",
-      CheckInputBar: false,
-      AlertMsg: "Please fill both input",
-      // CheckValue: false
+      message: "",
+      stored: [],
     };
   },
 
+  mounted() {
+    let retrievedObject = localStorage.getItem("LoginDatacreD");
+    this.stored = JSON.parse(retrievedObject);
+    if (this.stored && this.stored.length) {
+      this.sendData();
+    }
+  },
+
+  computed: {
+    ...mapGetters("userData", ["getUserEmail"]),
+  },
+
   methods: {
-    ...mapActions("userData", ["signin"]),
+    ...mapActions("userData", ["login", "RetreiveData"]),
 
     Submit() {
-      // let EmailData =  this.EmailData.trim() > 0
+      const newData = this.EmailData.trim();
 
-      const newwd = this.EmailData.trim().length;
+      if (newData && this.PasswordData.trim()) {
+        let loginUserDetails = JSON.parse(localStorage.getItem("userDatacreD"));
 
-      if (this.PasswordData && newwd) {
-        //   console.log("afewf")
-        this.signin({
-          email: this.EmailData,
-          Password: this.PasswordData,
-        });
+        if (loginUserDetails && loginUserDetails.length) {
+          loginUserDetails.forEach((element) => {
+            if (
+              element.signUpEmail == this.EmailData &&
+              element.checkCnfpswd == this.PasswordData
+            ) {
+              let User = {
+                firstname: "",
+              };
+
+              (User.firstname = this.EmailData),
+                localStorage.setItem("LoginDatacreD", JSON.stringify(User));
+              this.$router.push("/ProfilePage");
+
+              return;
+            } else {
+              this.message =
+                "User name or password is not matched. please try again ";
+              return;
+            }
+          });
+        } else {
+          this.message = "User name or password is not matched ";
+        }
+
         (this.EmailData = ""), (this.PasswordData = "");
-        this.$router.push("/PageOne");
       } else {
-        this.CheckInputBar = true;
+        this.message = "please fill both input ";
       }
+    },
+    showPassword() {
+      if (this.type === "password") {
+        this.type = "text";
+        this.btnText = "Hide Password";
+      } else {
+        this.type = "password";
+        this.btnText = "Show Password";
+      }
+    },
+
+    async sendData() {
+      await this.RetreiveData(this.stored);
     },
   },
 };

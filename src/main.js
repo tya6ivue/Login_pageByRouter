@@ -1,28 +1,24 @@
 import Vue from "vue";
 import App from "./App.vue";
 import VueRouter from "vue-router";
-import buefy from "buefy";
-import PageOne from "./pages/PageOne";
-import "buefy/dist/buefy.css";
+import Buefy from "buefy";
 
+import "buefy/dist/buefy.css";
+import routes from "./routes";
 import { store } from "./store/store";
 
 Vue.use(VueRouter);
-Vue.use(buefy);
+Vue.use(Buefy);
 
 Vue.config.productionTip = false;
 
-const routes = [
-  { path: "/", component: PageOne },
-  // { 'path': '/', component: Home },
-];
-
 const router = new VueRouter({
-  routes,
+  routes: routes,
+  mode: "history",
 });
 
 new Vue({
-  render: (h) => h(App),
-  store: store,
   router: router,
+  store: store,
+  render: (h) => h(App),
 }).$mount("#app");

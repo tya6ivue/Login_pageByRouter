@@ -1,19 +1,36 @@
 <template>
   <div id="app">
-    <LoginPage />
-    <Form />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Form from "./components/Form.vue";
-import LoginPage from "./components/LoginPage.vue";
-
+import { mapActions } from "vuex";
 export default {
   name: "App",
-  components: {
-    Form,
-    LoginPage,
+  data() {
+    return {
+      DataForSort: [],
+    };
+  },
+
+  methods: {
+    ...mapActions("userData", ["seperate"]),
+
+    Retreive() {
+      this.seperate(this.DataForSort);
+    },
+  },
+
+  mounted() {
+    let ProfileData = localStorage.getItem("userDatacreD");
+    if (ProfileData && ProfileData.length) {
+      this.DataForSort = JSON.parse(ProfileData);
+    }
+
+    if (this.DataForSort && this.DataForSort.length) {
+      this.Retreive();
+    }
   },
 };
 </script>
@@ -25,6 +42,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
